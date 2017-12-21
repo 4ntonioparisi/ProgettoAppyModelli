@@ -25,7 +25,7 @@ function load_stats()
 
 			$login_footer = '';
 
-			if($handle = @fopen(APPPATH . 'views/login.php', 'r'))
+			if($handle = fopen(APPPATH . 'views/login.php', 'r'))
 			{
 				while(!feof($handle))
 				{
