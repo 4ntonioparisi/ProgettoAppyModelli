@@ -128,7 +128,7 @@ class Sale_lib
 		return empty($comment) ? '' : $comment;
 	}
 
-	public function set_comment($comment)
+	public function set_comment($comment = '')
 	{
 		$this->CI->session->set_userdata('sales_comment', $comment);
 	}
@@ -148,7 +148,7 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_quote_number');
 	}
 
-	public function set_invoice_number($invoice_number, $keep_custom = FALSE)
+	public function set_invoice_number($invoice_number = '', $keep_custom = FALSE)
 	{
 		$current_invoice_number = $this->CI->session->userdata('sales_invoice_number');
 		if(!$keep_custom || empty($current_invoice_number))
@@ -204,7 +204,7 @@ class Sale_lib
 		return ($this->CI->session->userdata('sales_mode') == 'sale_quote');
 	}
 
-	public function set_invoice_number_enabled($invoice_number_enabled)
+	public function set_invoice_number_enabled($invoice_number_enabled = null)
 	{
 		return $this->CI->session->set_userdata('sales_invoice_number_enabled', $invoice_number_enabled);
 	}
@@ -215,7 +215,7 @@ class Sale_lib
 				$this->CI->session->userdata('sales_print_after_sale') == '1');
 	}
 
-	public function set_print_after_sale($print_after_sale)
+	public function set_print_after_sale($print_after_sale = null)
 	{
 		return $this->CI->session->set_userdata('sales_print_after_sale', $print_after_sale);
 	}
@@ -225,7 +225,7 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_email_receipt');
 	}
 
-	public function set_email_receipt($email_receipt)
+	public function set_email_receipt($email_receipt = null)
 	{
 		$this->CI->session->set_userdata('sales_email_receipt', $email_receipt);
 	}
@@ -253,7 +253,7 @@ class Sale_lib
 	}
 
 	// Multiple Payments
-	public function add_payment($payment_id, $payment_amount)
+	public function add_payment($payment_id = null, $payment_amount = null)
 	{
 		$payments = $this->get_payments();
 		if(isset($payments[$payment_id]))
@@ -535,7 +535,7 @@ class Sale_lib
 		$this->CI->session->set_userdata('sales_location', $location);
 	}
 
-	public function set_payment_type($payment_type)
+	public function set_payment_type($payment_type = null)
 	{
 		$this->CI->session->set_userdata('payment_type', $payment_type);
 	}
@@ -748,7 +748,7 @@ class Sale_lib
 		return -1;
 	}
 
-	public function edit_item($line, $description, $serialnumber, $quantity, $discount, $price)
+	public function edit_item($line = '', $description = '', $serialnumber = '', $quantity = 0, $discount = '', $price = '')
 	{
 		$items = $this->get_cart();
 		if(isset($items[$line]))
