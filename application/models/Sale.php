@@ -114,7 +114,7 @@ class Sale extends CI_Model
 	/**
 	 * Get the sales data for the takings (sales/manage) view
 	 */
-	public function search($search = null, $filters = null, $rows = 0, $limit_from = 0, $sort = 'sale_time', $order = 'desc')
+	public function search($search, $filters, $rows, $limit_from, $sort, $order)
 	{
 		// Pick up only non-suspended records
 		$where = 'sales.sale_status = 0 AND ';
