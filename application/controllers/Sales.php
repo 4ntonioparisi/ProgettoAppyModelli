@@ -546,7 +546,7 @@ class Sales extends Secure_Controller
 				else
 				{
 					$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['sale_id']);
-					$this->load->view('sales/invoice', $data);
+					$this->load->view('sales/invoice');
 					$this->sale_lib->clear_all();
 				}
 			}
@@ -584,7 +584,7 @@ class Sales extends Secure_Controller
 
 				$data['barcode'] = NULL;
 
-				$this->load->view('sales/quote', $data);
+				$this->load->view('sales/quote');
 				$this->sale_lib->clear_mode();
 				$this->sale_lib->clear_all();
 			}
@@ -611,7 +611,7 @@ class Sales extends Secure_Controller
 				// Reload (sorted) and filter the cart line items for printing purposes
 				$data['cart'] = $this->get_filtered($this->sale_lib->get_cart_reordered($data['sale_id_num']));
 
-				$this->load->view('sales/receipt', $data);
+				$this->load->view('sales/receipt');
 				$this->sale_lib->clear_all();
 			}
 		}
@@ -916,14 +916,14 @@ class Sales extends Secure_Controller
 	public function receipt($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/receipt', $data);
+		$this->load->view('sales/receipt');
 		$this->sale_lib->clear_all();
 	}
 
 	public function invoice($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/invoice', $data);
+		$this->load->view('sales/invoice');
 		$this->sale_lib->clear_all();
 	}
 
@@ -959,7 +959,7 @@ class Sales extends Secure_Controller
 
 		// don't allow gift card to be a payment option in a sale transaction edit because it's a complex change
 		$data['payment_options'] = $this->xss_clean($this->Sale->get_payment_options(FALSE));
-		$this->load->view('sales/form', $data);
+		$this->load->view('sales/form');
 	}
 
 	public function delete($sale_id = -1, $update_inventory = TRUE)
@@ -1083,7 +1083,7 @@ class Sales extends Secure_Controller
 		$data = array();
 		$data['suspended_sales'] = $this->xss_clean($this->Sale->get_all_suspended($customer_id));
 		$data['dinner_table_enable'] = $this->config->item('dinner_table_enable');
-		$this->load->view('sales/suspended', $data);
+		$this->load->view('sales/suspended');
 	}
 
 	/*
