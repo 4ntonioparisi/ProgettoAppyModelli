@@ -505,7 +505,7 @@ class Sales extends Secure_Controller
 			// generate final invoice number (if using the invoice in sales by receipt mode then the invoice number can be manually entered or altered in some way
 			if($this->sale_lib->is_sale_by_receipt_mode())
 			{
-				$this->sale_lib->set_invoice_number($this->input->post('invoice_number'), $keep_custom = TRUE);
+				$this->sale_lib->set_invoice_number();
 				$invoice_format = $this->sale_lib->get_invoice_number();
 				if(empty($invoice_format))
 				{
