@@ -916,7 +916,7 @@ class Config extends Secure_Controller
 			$result = FALSE;
 
 			// Chmod the file
-			@chmod($config_path, 0777);
+			chmod($config_path, 0777);
 
 			// Write the new config.php file
 			$handle = fopen($config_path, 'w+');
@@ -931,7 +931,7 @@ class Config extends Secure_Controller
 			fclose($handle);
 
 			// Chmod the file
-			@chmod($config_path, 0444);
+			chmod($config_path, 0444);
 
 			return $result;
 		}
