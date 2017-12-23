@@ -84,7 +84,7 @@ class Item extends CI_Model
 	/*
 	Perform a search on items
 	*/
-	public function search($search, $filters, $rows = 0, $limit_from = 0, $sort = 'items.name', $order = 'asc')
+	public function search($search='', $filters='', $rows = 0, $limit_from = 0, $sort = 'items.name', $order = 'asc')
 	{
 		$this->db->select('MAX(items.name) as name');
 		$this->db->select('MAX(items.category) as category');
@@ -343,7 +343,7 @@ class Item extends CI_Model
 	/*
 	Inserts or updates a item
 	*/
-	public function save(&$item_data, $item_id = FALSE)
+	public function save(&$item_data='', $item_id = FALSE)
 	{
 		if(!$item_id || !$this->exists($item_id, TRUE))
 		{

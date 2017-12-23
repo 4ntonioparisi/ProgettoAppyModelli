@@ -21,7 +21,7 @@ class Item_taxes extends CI_Model
 	/*
 	Inserts or updates an item's taxes
 	*/
-	public function save(&$items_taxes_data, $item_id)
+	public function save(&$items_taxes_data='', $item_id='')
 	{
 		$success = TRUE;
 
