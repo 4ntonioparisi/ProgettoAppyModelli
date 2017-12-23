@@ -163,30 +163,27 @@ class Sales extends Secure_Controller
 		$this->_reload();
 	}
 
-	public function set_comment()
-	{
-		$this->sale_lib->set_comment($this->input->post('comment'));
+	public function set_comment(){
+		$this->sale_lib->set_comment();
 	}
 
-	public function set_invoice_number()
-	{
-		$this->sale_lib->set_invoice_number($this->input->post('sales_invoice_number'));
+	public function set_invoice_number(){
+		$this->sale_lib->set_invoice_number();
 	}
 
-	public function set_invoice_number_enabled()
-	{
-		$this->sale_lib->set_invoice_number_enabled($this->input->post('sales_invoice_number_enabled'));
+	public function set_invoice_number_enabled(){
+		$this->sale_lib->set_invoice_number_enabled();
 	}
 
 	public function set_payment_type()
 	{
-		$this->sale_lib->set_payment_type($this->input->post('selected_payment_type'));
+		$this->sale_lib->set_payment_type();
 		$this->_reload();
 	}
 
 	public function set_print_after_sale()
 	{
-		$this->sale_lib->set_print_after_sale($this->input->post('sales_print_after_sale'));
+		$this->sale_lib->set_print_after_sale();
 	}
 
 	public function set_email_receipt()
@@ -637,7 +634,7 @@ class Sales extends Secure_Controller
 			$text = $this->token_lib->render($text, $tokens);
 
 			// generate email attachment: invoice in pdf format
-			$html = $this->load->view("sales/" . $type . "_email", $sale_data, TRUE);
+			$html = $this->load->view("sales/" . $type . "_email");
 			// load pdf helper
 			$this->load->helper(array('dompdf', 'file'));
 			$filename = sys_get_temp_dir() . '/' . $this->lang->line("sales_N") . '-' . str_replace('/', '-', $number) . '.pdf';
@@ -670,7 +667,7 @@ class Sales extends Secure_Controller
 			$to = $sale_data['customer_email'];
 			$subject = $this->lang->line('sales_receipt');
 
-			$text = $this->load->view('sales/receipt_email', $sale_data, TRUE);
+			$text = $this->load->view('sales/receipt_email');
 
 			$result = $this->email_lib->sendEmail($to, $subject, $text);
 
@@ -910,7 +907,7 @@ class Sales extends Secure_Controller
 		}
 		$data = $this->xss_clean($data);
 
-		$this->load->view("sales/register", $data);
+		$this->load->view("sales/register");
 	}
 
 	public function receipt($sale_id)
