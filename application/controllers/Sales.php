@@ -47,7 +47,7 @@ class Sales extends Secure_Controller
 					'only_check' => $this->lang->line('sales_check_filter'));
 			}
 
-			$this->load->view('sales/manage', $data);
+			$this->load->view('sales/manage');
 		}
 	}
 
