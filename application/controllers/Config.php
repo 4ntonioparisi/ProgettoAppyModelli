@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 require_once("Secure_Controller.php");
 
@@ -229,7 +229,7 @@ class Config extends Secure_Controller
 		// load mailchimp lists associated to the given api key, already XSS cleaned in the private function
 		$data['mailchimp']['lists'] = $this->_mailchimp();
 
-		$this->load->view("configs/manage");
+		$this->load->view("configs/manage", $data);
 	}
 
 
@@ -493,7 +493,7 @@ class Config extends Secure_Controller
 
 		$stock_locations = $this->xss_clean($stock_locations);
 
-		$this->load->view('partial/stock_locations');
+		$this->load->view('partial/stock_locations', array('stock_locations' => $stock_locations));
 	}
 
 	public function ajax_dinner_tables()
@@ -502,7 +502,7 @@ class Config extends Secure_Controller
 
 		$dinner_tables = $this->xss_clean($dinner_tables);
 
-		$this->load->view('partial/dinner_tables');
+		$this->load->view('partial/dinner_tables', array('dinner_tables' => $dinner_tables));
 	}
 
 	public function ajax_tax_categories()
@@ -511,7 +511,7 @@ class Config extends Secure_Controller
 
 		$tax_categories = $this->xss_clean($tax_categories);
 
-		$this->load->view('partial/tax_categories');
+		$this->load->view('partial/tax_categories', array('tax_categories' => $tax_categories));
 	}
 
 	public function ajax_customer_rewards()
@@ -520,7 +520,7 @@ class Config extends Secure_Controller
 
 		$customer_rewards = $this->xss_clean($customer_rewards);
 
-		$this->load->view('partial/customer_rewards');
+		$this->load->view('partial/customer_rewards', array('customer_rewards' => $customer_rewards));
 	}
 
 	private function _clear_session_state()
@@ -916,7 +916,7 @@ class Config extends Secure_Controller
 			$result = FALSE;
 
 			// Chmod the file
-			@chmod($config_path, 0777);
+			chmod($config_path, 0777);
 
 			// Write the new config.php file
 			$handle = fopen($config_path, 'w+');
@@ -931,7 +931,7 @@ class Config extends Secure_Controller
 			fclose($handle);
 
 			// Chmod the file
-			@chmod($config_path, 0444);
+			chmod($config_path, 0444);
 
 			return $result;
 		}

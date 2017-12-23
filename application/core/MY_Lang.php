@@ -1,5 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 class MY_Lang extends CI_Lang
 {
     public function switch_to($idiom)

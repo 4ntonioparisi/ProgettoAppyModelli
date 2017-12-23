@@ -1,5 +1,4 @@
-<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 require_once("Secure_Controller.php");
 
 class Sales extends Secure_Controller
@@ -47,7 +46,7 @@ class Sales extends Secure_Controller
 					'only_check' => $this->lang->line('sales_check_filter'));
 			}
 
-			$this->load->view('sales/manage');
+			$this->load->view('sales/manage', $data);
 		}
 	}
 
@@ -81,7 +80,7 @@ class Sales extends Secure_Controller
 		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
 		$filters = array_merge($filters, $filledup);
 
-		$sales = $this->Sale->search();
+		$sales = $this->Sale->search($search, $filters, $limit, $offset, $sort, $order);
 		$total_rows = $this->Sale->get_found_rows($search, $filters);
 		$payments = $this->Sale->get_payments_summary($search, $filters);
 		$payment_summary = $this->xss_clean(get_sales_manage_payments_summary($payments, $sales, $this));
@@ -163,27 +162,30 @@ class Sales extends Secure_Controller
 		$this->_reload();
 	}
 
-	public function set_comment(){
-		$this->sale_lib->set_comment();
+	public function set_comment()
+	{
+		$this->sale_lib->set_comment($this->input->post('comment'));
 	}
 
-	public function set_invoice_number(){
-		$this->sale_lib->set_invoice_number();
+	public function set_invoice_number()
+	{
+		$this->sale_lib->set_invoice_number($this->input->post('sales_invoice_number'));
 	}
 
-	public function set_invoice_number_enabled(){
-		$this->sale_lib->set_invoice_number_enabled();
+	public function set_invoice_number_enabled()
+	{
+		$this->sale_lib->set_invoice_number_enabled($this->input->post('sales_invoice_number_enabled'));
 	}
 
 	public function set_payment_type()
 	{
-		$this->sale_lib->set_payment_type();
+		$this->sale_lib->set_payment_type($this->input->post('selected_payment_type'));
 		$this->_reload();
 	}
 
 	public function set_print_after_sale()
 	{
-		$this->sale_lib->set_print_after_sale();
+		$this->sale_lib->set_print_after_sale($this->input->post('sales_print_after_sale'));
 	}
 
 	public function set_email_receipt()
@@ -543,7 +545,7 @@ class Sales extends Secure_Controller
 				else
 				{
 					$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['sale_id']);
-					$this->load->view('sales/invoice');
+					$this->load->view('sales/invoice', $data);
 					$this->sale_lib->clear_all();
 				}
 			}
@@ -581,7 +583,7 @@ class Sales extends Secure_Controller
 
 				$data['barcode'] = NULL;
 
-				$this->load->view('sales/quote');
+				$this->load->view('sales/quote', $data);
 				$this->sale_lib->clear_mode();
 				$this->sale_lib->clear_all();
 			}
@@ -608,7 +610,7 @@ class Sales extends Secure_Controller
 				// Reload (sorted) and filter the cart line items for printing purposes
 				$data['cart'] = $this->get_filtered($this->sale_lib->get_cart_reordered($data['sale_id_num']));
 
-				$this->load->view('sales/receipt');
+				$this->load->view('sales/receipt', $data);
 				$this->sale_lib->clear_all();
 			}
 		}
@@ -634,7 +636,7 @@ class Sales extends Secure_Controller
 			$text = $this->token_lib->render($text, $tokens);
 
 			// generate email attachment: invoice in pdf format
-			$html = $this->load->view("sales/" . $type . "_email");
+			$html = $this->load->view("sales/" . $type . "_email", $sale_data, TRUE);
 			// load pdf helper
 			$this->load->helper(array('dompdf', 'file'));
 			$filename = sys_get_temp_dir() . '/' . $this->lang->line("sales_N") . '-' . str_replace('/', '-', $number) . '.pdf';
@@ -667,7 +669,7 @@ class Sales extends Secure_Controller
 			$to = $sale_data['customer_email'];
 			$subject = $this->lang->line('sales_receipt');
 
-			$text = $this->load->view('sales/receipt_email');
+			$text = $this->load->view('sales/receipt_email', $sale_data, TRUE);
 
 			$result = $this->email_lib->sendEmail($to, $subject, $text);
 
@@ -907,20 +909,20 @@ class Sales extends Secure_Controller
 		}
 		$data = $this->xss_clean($data);
 
-		$this->load->view("sales/register");
+		$this->load->view("sales/register", $data);
 	}
 
 	public function receipt($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/receipt');
+		$this->load->view('sales/receipt', $data);
 		$this->sale_lib->clear_all();
 	}
 
 	public function invoice($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/invoice');
+		$this->load->view('sales/invoice', $data);
 		$this->sale_lib->clear_all();
 	}
 
@@ -956,7 +958,7 @@ class Sales extends Secure_Controller
 
 		// don't allow gift card to be a payment option in a sale transaction edit because it's a complex change
 		$data['payment_options'] = $this->xss_clean($this->Sale->get_payment_options(FALSE));
-		$this->load->view('sales/form');
+		$this->load->view('sales/form', $data);
 	}
 
 	public function delete($sale_id = -1, $update_inventory = TRUE)
@@ -1080,7 +1082,7 @@ class Sales extends Secure_Controller
 		$data = array();
 		$data['suspended_sales'] = $this->xss_clean($this->Sale->get_all_suspended($customer_id));
 		$data['dinner_table_enable'] = $this->config->item('dinner_table_enable');
-		$this->load->view('sales/suspended');
+		$this->load->view('sales/suspended', $data);
 	}
 
 	/*

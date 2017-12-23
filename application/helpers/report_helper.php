@@ -1,5 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 function show_report_if_allowed($report_prefix, $report_name, $person_id, $permission_id = '')
 {
 	$CI =& get_instance();

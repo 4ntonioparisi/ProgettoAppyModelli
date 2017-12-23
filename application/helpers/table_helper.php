@@ -1,5 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 function get_sales_manage_table_headers()
 {
 	$CI =& get_instance();

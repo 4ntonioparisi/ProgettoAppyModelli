@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
 
 require_once("Secure_Controller.php");
 
@@ -26,7 +26,7 @@ class Items extends Secure_Controller
 			'search_custom' => $this->lang->line('items_search_custom_items'),
 			'is_deleted' => $this->lang->line('items_is_deleted'));
 
-		$this->load->view('items/manage');
+		$this->load->view('items/manage', $data);
 	}
 
 	/*
@@ -253,7 +253,7 @@ class Items extends Secure_Controller
 			$data['stock_locations'] = $location_array;
 		}
 
-		$this->load->view('items/form');
+		$this->load->view('items/form', $data);
 	}
 
 	public function inventory($item_id = -1)
@@ -276,7 +276,7 @@ class Items extends Secure_Controller
 			$data['item_quantities'][$location['location_id']] = $quantity;
 		}
 
-		$this->load->view('items/form_inventory');
+		$this->load->view('items/form_inventory', $data);
 	}
 	
 	public function count_details($item_id = -1)
@@ -299,7 +299,7 @@ class Items extends Secure_Controller
 			$data['item_quantities'][$location['location_id']] = $quantity;
 		}
 
-		$this->load->view('items/form_count_details');
+		$this->load->view('items/form_count_details', $data);
 	}
 
 	public function generate_barcodes($item_ids)
@@ -333,7 +333,7 @@ class Items extends Secure_Controller
 		$data['items'] = $result;
 
 		// display barcodes
-		$this->load->view('barcodes/barcode_sheet');
+		$this->load->view('barcodes/barcode_sheet', $data);
 	}
 
 	public function bulk_edit()
@@ -356,7 +356,7 @@ class Items extends Secure_Controller
 			1  => $this->lang->line('items_change_all_to_serialized'),
 			0  => $this->lang->line('items_change_all_to_unserialized'));
 
-		$this->load->view('items/form_bulk');
+		$this->load->view('items/form_bulk', $data);
 	}
 
 	public function save($item_id = -1)
@@ -647,7 +647,7 @@ class Items extends Secure_Controller
 	
 	public function excel_import()
 	{
-		$this->load->view('items/form_excel_import');
+		$this->load->view('items/form_excel_import', NULL);
 	}
 
 	public function do_excel_import()

@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 class No_Access extends CI_Controller 
 {
 	public function index($module_id = '', $permission_id = '')
