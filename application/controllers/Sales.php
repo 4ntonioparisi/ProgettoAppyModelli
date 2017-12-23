@@ -81,7 +81,7 @@ class Sales extends Secure_Controller
 		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
 		$filters = array_merge($filters, $filledup);
 
-		$sales = $this->Sale->search($search);
+		$sales = $this->Sale->search();
 		$total_rows = $this->Sale->get_found_rows($search, $filters);
 		$payments = $this->Sale->get_payments_summary($search, $filters);
 		$payment_summary = $this->xss_clean(get_sales_manage_payments_summary($payments, $sales, $this));
