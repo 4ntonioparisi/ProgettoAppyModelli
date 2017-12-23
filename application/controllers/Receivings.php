@@ -71,17 +71,17 @@ class Receivings extends Secure_Controller
 	
 	public function set_comment()
 	{
-		$this->receiving_lib->set_comment($this->input->post('comment'));
+		$this->receiving_lib->set_comment();
 	}
 
 	public function set_print_after_sale()
 	{
-		$this->receiving_lib->set_print_after_sale($this->input->post('recv_print_after_sale'));
+		$this->receiving_lib->set_print_after_sale();
 	}
 	
 	public function set_reference()
 	{
-		$this->receiving_lib->set_reference($this->input->post('recv_reference'));
+		$this->receiving_lib->set_reference();
 	}
 	
 	public function add()
@@ -127,7 +127,7 @@ class Receivings extends Secure_Controller
 
 		if($this->form_validation->run() != FALSE)
 		{
-			$this->receiving_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $price);
+			$this->receiving_lib->edit_item();
 		}
 		else
 		{
@@ -237,7 +237,7 @@ class Receivings extends Secure_Controller
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id'] = 'RECV ' . $this->Receiving->save($data['cart'], $supplier_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
+		$data['receiving_id'] = 'RECV ' . $this->Receiving->save();
 
 		$data = $this->xss_clean($data);
 
