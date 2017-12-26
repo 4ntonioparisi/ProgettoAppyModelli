@@ -15,7 +15,7 @@ class Taxes extends Secure_Controller
 	{
 		$data['table_headers'] = $this->xss_clean(get_taxes_manage_table_headers());
 
-		$this->load->view('taxes/manage', $data);
+		$this->load->view('taxes/manage');
 	}
 
 	/*
@@ -29,7 +29,7 @@ class Taxes extends Secure_Controller
 		$sort = $this->input->get('sort');
 		$order = $this->input->get('order');
 
-		$tax_codes = $this->Tax->search($search, $limit, $offset, $sort, $order);
+		$tax_codes = $this->Tax->search();
 
 		$total_rows = $this->Tax->get_found_rows($search);
 
@@ -129,7 +129,7 @@ class Taxes extends Secure_Controller
 
 		$data['tax_code_rates'] = $tax_code_rates;
 
-		$this->load->view("taxes/form", $data);
+		$this->load->view("taxes/form");
 	}
 
 	public static function get_html_rounding_options()
@@ -154,7 +154,7 @@ class Taxes extends Secure_Controller
 			'rounding_code' => $this->input->post('rounding_code')
 		);
 
-		if($this->Tax->save($tax_code_data, $tax_rate_data, $tax_code))
+		if($this->Tax->save())
 		{
 			$tax_code_rate_exceptions = array();
 			if(!empty($this->input->post('exception_tax_rate')))

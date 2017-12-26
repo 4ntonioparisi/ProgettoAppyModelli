@@ -20,7 +20,7 @@ class Employees extends Persons
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$employees = $this->Employee->search($search, $limit, $offset, $sort, $order);
+		$employees = $this->Employee->search();
 		$total_rows = $this->Employee->get_found_rows($search);
 
 		$data_rows = array();
@@ -77,7 +77,7 @@ class Employees extends Persons
 		}
 		$data['all_subpermissions'] = $permissions;
 
-		$this->load->view('employees/form', $data);
+		$this->load->view('employees/form');
 	}
 
 	/*
@@ -95,7 +95,7 @@ class Employees extends Persons
 					'hash_version' => 2
 				);
 
-				if($this->Employee->change_password($employee_data, $employee_id))
+				if($this->Employee->change_password())
 				{
 					echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('employees_successful_change_password'), 'id' => $employee_id));
 				}
@@ -204,7 +204,7 @@ class Employees extends Persons
 		}
 		$data['person_info'] = $person_info;
 
-		$this->load->view('employees/form_change_password', $data);
+		$this->load->view('employees/form_change_password');
 	}
 }
 ?>

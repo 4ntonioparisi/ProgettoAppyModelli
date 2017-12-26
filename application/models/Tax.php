@@ -168,8 +168,11 @@ class Tax extends CI_Model
 	/**
 	Inserts or updates a tax_codes entry
 	*/
-	public function save(&$tax_code_data, $tax_rate_data, $tax_code = -1)
+	public function save()
 	{
+        &$tax_code_data = NULL
+        $tax_rate_data = NULL;
+        $tax_code = NULL;
 		if(!$this->exists($tax_code))
 		{
 			if($this->db->insert('tax_codes', $tax_code_data))
@@ -298,8 +301,13 @@ class Tax extends CI_Model
 	/**
 	Performs a search on tax_codes
 	*/
-	public function search($search, $rows = 0, $limit_from = 0, $sort = 'tax_code', $order = 'asc')
+	public function search()
 	{
+        $search = NULL;
+        $rows = NULL; 
+        $limit_from = NULL; 
+        $sort = NULL;
+        $order = NULL;
 		$this->db->from('tax_codes');
 		$this->db->join('tax_code_rates',
 			'tax_code = rate_tax_code and rate_tax_category_id = 1', 'LEFT');
