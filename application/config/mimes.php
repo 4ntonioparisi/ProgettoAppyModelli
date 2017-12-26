@@ -40,7 +40,6 @@ return array(
 	'tgz'	=>	array('application/x-tar', 'application/x-gzip-compressed'),
 	'z'	=>	'application/x-compress',
 	'xhtml'	=>	'application/xhtml+xml',
-	'xht'	=>	'application/xhtml+xml',
 	'zip'	=>	array('application/x-zip', 'application/zip', 'application/x-zip-compressed', 'application/s-compressed', 'multipart/x-zip'),
 	'rar'	=>	array('application/x-rar', 'application/rar', 'application/x-rar-compressed'),
 	'mid'	=>	'audio/midi',
@@ -129,6 +128,5 @@ return array(
 	'svg'	=>	array('image/svg+xml', 'application/xml', 'text/xml'),
 	'vcf'	=>	'text/x-vcard',
 	'srt'	=>	array('text/srt', 'text/plain'),
-	'vtt'	=>	array('text/vtt', 'text/plain'),
 	'ico'	=>	array('image/x-icon', 'image/x-ico', 'image/vnd.microsoft.icon')
 );
