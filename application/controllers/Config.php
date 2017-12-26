@@ -425,8 +425,7 @@ class Config extends Secure_Controller
 	/*
 	* This function fetches all the available lists from Mailchimp for the given API key
 	*/
-	private function _mailchimp($api_key = '')
-	{
+	public function _mailchimp($api_key = ''){
 		$this->load->library('mailchimp_lib', array('api_key' => $api_key));
 
 		$result = array();
