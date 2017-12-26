@@ -74,7 +74,7 @@ class Dinner_table extends CI_Model
 	/**
 	Deletes one table
 	*/
-	public function delete($dinner_table_id)
+	public function delete()
 	{
 		$this->db->where('dinner_table_id', $dinner_table_id);
 

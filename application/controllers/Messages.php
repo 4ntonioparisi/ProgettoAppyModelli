@@ -25,7 +25,7 @@ class Messages extends Secure_Controller
 		}
 		$data['person_info'] = $info;
 
-		$this->load->view('messages/form_sms', $data);
+		$this->load->view('messages/form_sms');
 	}
 
 	public function send()
