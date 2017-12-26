@@ -49,11 +49,11 @@ class Config extends Secure_Controller
 
 					$license[$i]['title'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($basename)).'.version', NULL, NULL, 0, 100));
 
-					$license_text_file = $basename . '.license';
+					$license_text_file = $basename . $fileinfo->getBasename('.license');
 
 					if(file_exists($license_text_file))
 					{
-						$license[$i]['text'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($license_text_file)), NULL, NULL, 0, 2000));
+						$license[$i]['text'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($license_text_file)).'.license', NULL, NULL, 0, 2000));
 					}
 					else
 					{
