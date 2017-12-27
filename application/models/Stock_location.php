@@ -91,7 +91,7 @@ class Stock_location extends CI_Model
 		return $this->db->get()->row()->location_name;
 	}
 
-	public function save()
+	public function save(&$location_data, $location_id)
 	{
 		$location_name = $location_data['location_name'];
 
@@ -145,7 +145,7 @@ class Stock_location extends CI_Model
 	/*
 	 Deletes one item
 	*/
-	public function delete()
+	public function delete($location_id)
 	{
 		$this->db->trans_start();
 

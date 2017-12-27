@@ -275,13 +275,8 @@ class Employee extends Person
 	/*
 	Performs a search on employees
 	*/
-	public function search()
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'last_name', $order = 'asc')
 	{
-        $search = NULL;
-        $rows = NULL; 
-        $limit_from = NULL; 
-        $sort = NULL; 
-        $order = NULL;
 		$this->db->from('employees');
 		$this->db->join('people', 'employees.person_id = people.person_id');
 		$this->db->group_start();
@@ -448,10 +443,8 @@ class Employee extends Person
 	/*
 	Change password for the employee
 	*/
-	public function change_password()
+	public function change_password($employee_data, $employee_id = FALSE)
 	{
-        $employee_data = NULL; 
-        $employee_id = NULL;
 		$success = FALSE;
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing

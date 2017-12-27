@@ -15,11 +15,8 @@ class Item_quantity extends CI_Model
         return ($this->db->get()->num_rows() == 1);
     }
 
-    public function save()
+    public function save($location_detail, $item_id, $location_id)
     {
-        $location_detail='';
-        $item_id=''; 
-        $location_id='';
         if(!$this->exists($item_id, $location_id))
         {
             return $this->db->insert('item_quantities', $location_detail);

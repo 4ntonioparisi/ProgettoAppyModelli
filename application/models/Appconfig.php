@@ -34,7 +34,7 @@ class Appconfig extends CI_Model
 		return '';
 	}
 
-	public function save()
+	public function save($key, $value)
 	{
 		$config_data = array(
 			'key'   => $key,

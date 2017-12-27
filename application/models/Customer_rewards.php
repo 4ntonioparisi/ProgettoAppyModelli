@@ -14,7 +14,7 @@ class Customer_rewards extends CI_Model
 		return ($this->db->get()->num_rows() >= 1);
 	}
 
-	public function save()
+	public function save($package_data, $package_id)
 	{
 		$package_data_to_save = array('package_name' => $package_data['package_name'], 'deleted' => 0, 'points_percent' => $package_data['points_percent']);
 
@@ -55,7 +55,7 @@ class Customer_rewards extends CI_Model
 	/**
 	Deletes one reward package
 	*/
-	public function delete()
+	public function delete($package_id)
 	{
 		$this->db->where('package_id', $package_id);
 

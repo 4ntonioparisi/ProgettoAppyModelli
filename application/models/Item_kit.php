@@ -125,10 +125,8 @@ class Item_kit extends CI_Model
 	/*
 	Inserts or updates an item kit
 	*/
-	public function save()
+	public function save(&$item_kit_data, $item_kit_id = FALSE)
 	{
-        &$item_kit_data = NULL;
-        $item_kit_id = NULL;
 		if(!$item_kit_id || !$this->exists($item_kit_id))
 		{
 			if($this->db->insert('item_kits', $item_kit_data))
@@ -204,13 +202,8 @@ class Item_kit extends CI_Model
 	/*
 	Perform a search on items
 	*/
-	public function search()
+	public function search($search, $rows=0, $limit_from=0, $sort='name', $order='asc')
 	{
-        $search = NULL; 
-        $rows = NULL; 
-        $limit_from = NULL; 
-        $sort = NULL; 
-        $order = NULL;
 		$this->db->from('item_kits');
 		$this->db->like('name', $search);
 		$this->db->or_like('description', $search);

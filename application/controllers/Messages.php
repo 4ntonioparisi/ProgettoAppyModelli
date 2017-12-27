@@ -1,4 +1,4 @@
-<?php 
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Secure_Controller.php");
 
@@ -25,7 +25,7 @@ class Messages extends Secure_Controller
 		}
 		$data['person_info'] = $info;
 
-		$this->load->view('messages/form_sms');
+		$this->load->view('messages/form_sms', $data);
 	}
 
 	public function send()

@@ -114,13 +114,8 @@ class Sale extends CI_Model
 	/**
 	 * Get the sales data for the takings (sales/manage) view
 	 */
-	public function search(){
-        $search = '';
-        $filters = '';
-        $rows = 0;
-        $limit_from = 0;
-        $sort = '';
-        $order = '';
+	public function search($search, $filters, $rows = 0, $limit_from = 0, $sort = 'sale_time', $order = 'desc')
+	{
 		// Pick up only non-suspended records
 		$where = 'sales.sale_status = 0 AND ';
 
@@ -542,7 +537,7 @@ class Sale extends CI_Model
 	 * Save the sale information after the sales is complete but before the final document is printed
 	 * The sales_taxes variable needs to be initialized to an empty array before calling
 	 */
-	public function save(&$sale_status = null, &$items = null, $customer_id = null, $employee_id = null, $comment = null, $invoice_number = null, $quote_number = null, $payments = null, $dinner_table = null, &$sales_taxes = null, $sale_id = FALSE)
+	public function save(&$sale_status, &$items, $customer_id, $employee_id, $comment, $invoice_number, $quote_number, $payments, $dinner_table, &$sales_taxes, $sale_id = FALSE)
 	{
 		$tax_decimals = tax_decimals();
 

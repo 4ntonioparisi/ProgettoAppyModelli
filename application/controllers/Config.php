@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Secure_Controller.php");
 
@@ -47,13 +47,13 @@ class Config extends Secure_Controller
 
 					$basename = 'license/' . $fileinfo->getBasename('.version');
 
-					$license[$i]['title'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($basename)).'.version', NULL, NULL, 0, 100));
+					$license[$i]['title'] = $this->xss_clean(file_get_contents($basename . '.version', NULL, NULL, 0, 100));
 
-					$license_text_file = $basename . $fileinfo->getBasename('.license');
+					$license_text_file = $basename . '.license';
 
 					if(file_exists($license_text_file))
 					{
-						//$license[$i]['text'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($license_text_file)).'.license', NULL, NULL, 0, 2000));
+						$license[$i]['text'] = $this->xss_clean(file_get_contents($license_text_file , NULL, NULL, 0, 2000));
 					}
 					else
 					{
@@ -229,7 +229,7 @@ class Config extends Secure_Controller
 		// load mailchimp lists associated to the given api key, already XSS cleaned in the private function
 		$data['mailchimp']['lists'] = $this->_mailchimp();
 
-		$this->load->view("configs/manage");
+		$this->load->view("configs/manage", $data);
 	}
 
 
@@ -425,7 +425,8 @@ class Config extends Secure_Controller
 	/*
 	* This function fetches all the available lists from Mailchimp for the given API key
 	*/
-	public function _mailchimp($api_key = ''){
+	private function _mailchimp($api_key = '')
+	{
 		$this->load->library('mailchimp_lib', array('api_key' => $api_key));
 
 		$result = array();
@@ -492,7 +493,7 @@ class Config extends Secure_Controller
 
 		$stock_locations = $this->xss_clean($stock_locations);
 
-		$this->load->view('partial/stock_locations');
+		$this->load->view('partial/stock_locations', array('stock_locations' => $stock_locations));
 	}
 
 	public function ajax_dinner_tables()
@@ -501,7 +502,7 @@ class Config extends Secure_Controller
 
 		$dinner_tables = $this->xss_clean($dinner_tables);
 
-		$this->load->view('partial/dinner_tables');
+		$this->load->view('partial/dinner_tables', array('dinner_tables' => $dinner_tables));
 	}
 
 	public function ajax_tax_categories()
@@ -510,7 +511,7 @@ class Config extends Secure_Controller
 
 		$tax_categories = $this->xss_clean($tax_categories);
 
-		$this->load->view('partial/tax_categories');
+		$this->load->view('partial/tax_categories', array('tax_categories' => $tax_categories));
 	}
 
 	public function ajax_customer_rewards()
@@ -519,7 +520,7 @@ class Config extends Secure_Controller
 
 		$customer_rewards = $this->xss_clean($customer_rewards);
 
-		$this->load->view('partial/customer_rewards');
+		$this->load->view('partial/customer_rewards', array('customer_rewards' => $customer_rewards));
 	}
 
 	private function _clear_session_state()
@@ -546,7 +547,7 @@ class Config extends Secure_Controller
 				$not_to_delete[] = $location_id;
 				// save or update
 				$location_data = array('location_name' => $value);
-				if($this->Stock_location->save())
+				if($this->Stock_location->save($location_data, $location_id))
 				{
 					$this->_clear_session_state();
 				}
@@ -560,7 +561,7 @@ class Config extends Secure_Controller
 		{
 			if(!in_array($location_data['location_id'], $not_to_delete))
 			{
-				$this->Stock_location->delete();
+				$this->Stock_location->delete($location_data['location_id']);
 			}
 		}
 
@@ -580,7 +581,7 @@ class Config extends Secure_Controller
 
 		$dinner_table_enable = $this->input->post('dinner_table_enable') != NULL;
 
-		$this->Appconfig->save();
+		$this->Appconfig->save('dinner_table_enable', $dinner_table_enable);
 
 		if($dinner_table_enable)
 		{
@@ -593,7 +594,7 @@ class Config extends Secure_Controller
 					$not_to_delete[] = $dinner_table_id;
 					// save or update
 					$table_data = array('name' => $value);
-					if($this->Dinner_table->save())
+					if($this->Dinner_table->save($table_data, $dinner_table_id))
 					{
 						$this->_clear_session_state();
 					}
@@ -607,7 +608,7 @@ class Config extends Secure_Controller
 			{
 				if(!in_array($table['dinner_table_id'], $not_to_delete))
 				{
-					$this->Dinner_table->delete();
+					$this->Dinner_table->delete($table['dinner_table_id']);
 				}
 			}
 		}
@@ -718,7 +719,7 @@ class Config extends Secure_Controller
 
 		$customer_reward_enable = $this->input->post('customer_reward_enable') != NULL;
 
-		$this->Appconfig->save();
+		$this->Appconfig->save('customer_reward_enable', $customer_reward_enable);
 
 		if($customer_reward_enable)
 		{
@@ -745,7 +746,7 @@ class Config extends Secure_Controller
 				{
 					// save or update
 					$package_data = array('package_name' => $value['package_name'], 'points_percent' => $value['points_percent']);
-					$this->Customer_rewards->save();
+					$this->Customer_rewards->save($package_data, $key);
 				}
 			}
 
@@ -756,7 +757,7 @@ class Config extends Secure_Controller
 			{
 				if(!in_array($reward_category['package_id'], $not_to_delete))
 				{
-					$this->Customer_rewards->delete();
+					$this->Customer_rewards->delete($reward_category['package_id']);
 				}
 			}
 		}
@@ -901,7 +902,7 @@ class Config extends Secure_Controller
 			$config_path = APPPATH . 'config/config.php';
 
 			// Open the file
-			$config = file_get_contents(MY_BASEDIR . basename(realpath($config_path)));
+			$config = file_get_contents($config_path);
 
 			// $key will be assigned a 32-byte (256-bit) hex-encoded random key
 			$key = bin2hex($this->encryption->create_key(32));
@@ -915,11 +916,10 @@ class Config extends Secure_Controller
 			$result = FALSE;
 
 			// Chmod the file
-            
-			chmod(MY_BASEDIR . basename(realpath($config_path)), 0777);
+			@chmod($config_path, 0777);
 
 			// Write the new config.php file
-			$handle = fopen(MY_BASEDIR . basename(realpath($config_path)), 'w+');
+			$handle = fopen($config_path, 'w+');
 
 			// Verify file permissions
 			if(is_writable($config_path))
@@ -931,7 +931,7 @@ class Config extends Secure_Controller
 			fclose($handle);
 
 			// Chmod the file
-			chmod(MY_BASEDIR . basename(realpath($config_path)), 0444);
+			@chmod($config_path, 0444);
 
 			return $result;
 		}

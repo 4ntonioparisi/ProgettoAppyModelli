@@ -45,9 +45,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_cart');
 	}
 
-	public function sort_and_filter_cart()
+	public function sort_and_filter_cart($cart)
 	{
-        $cart = null;
 		if(empty($cart))
 		{
 			return $cart;
@@ -111,9 +110,8 @@ class Sale_lib
 		return $filtered_cart;
 	}
 
-	public function set_cart()
+	public function set_cart($cart_data)
 	{
-        $cart_data = '';
 		$this->CI->session->set_userdata('sales_cart', $cart_data);
 	}
 
@@ -130,9 +128,8 @@ class Sale_lib
 		return empty($comment) ? '' : $comment;
 	}
 
-	public function set_comment()
+	public function set_comment($comment)
 	{
-        $comment = '';
 		$this->CI->session->set_userdata('sales_comment', $comment);
 	}
 
@@ -151,10 +148,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_quote_number');
 	}
 
-	public function set_invoice_number()
+	public function set_invoice_number($invoice_number, $keep_custom = FALSE)
 	{
-        $invoice_number = ''; 
-        $keep_custom = FALSE;
 		$current_invoice_number = $this->CI->session->userdata('sales_invoice_number');
 		if(!$keep_custom || empty($current_invoice_number))
 		{
@@ -162,10 +157,8 @@ class Sale_lib
 		}
 	}
 
-	public function set_quote_number()
+	public function set_quote_number($quote_number, $keep_custom = FALSE)
 	{
-        $quote_number;
-        $keep_custom = FALSE;
 		$current_quote_number = $this->CI->session->userdata('sales_quote_number');
 		if(!$keep_custom || empty($current_quote_number))
 		{
@@ -183,9 +176,8 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_quote_number');
 	}
 
-	public function set_suspended_id()
+	public function set_suspended_id($suspended_id)
 	{
-        $suspended_id = null;
 		$this->CI->session->set_userdata('suspended_id', $suspended_id);
 	}
 
@@ -212,9 +204,8 @@ class Sale_lib
 		return ($this->CI->session->userdata('sales_mode') == 'sale_quote');
 	}
 
-	public function set_invoice_number_enabled()
+	public function set_invoice_number_enabled($invoice_number_enabled)
 	{
-        $invoice_number_enabled = null;
 		return $this->CI->session->set_userdata('sales_invoice_number_enabled', $invoice_number_enabled);
 	}
 
@@ -224,9 +215,8 @@ class Sale_lib
 				$this->CI->session->userdata('sales_print_after_sale') == '1');
 	}
 
-	public function set_print_after_sale()
+	public function set_print_after_sale($print_after_sale)
 	{
-        $print_after_sale = null;
 		return $this->CI->session->set_userdata('sales_print_after_sale', $print_after_sale);
 	}
 
@@ -235,9 +225,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_email_receipt');
 	}
 
-	public function set_email_receipt()
+	public function set_email_receipt($email_receipt)
 	{
-        $email_receipt = null;
 		$this->CI->session->set_userdata('sales_email_receipt', $email_receipt);
 	}
 
@@ -258,17 +247,14 @@ class Sale_lib
 	}
 
 	// Multiple Payments
-	public function set_payments()
+	public function set_payments($payments_data)
 	{
-        $payments_data = null;
 		$this->CI->session->set_userdata('sales_payments', $payments_data);
 	}
 
 	// Multiple Payments
-	public function add_payment()
+	public function add_payment($payment_id, $payment_amount)
 	{
-        $payment_id = null;
-        $payment_amount = null;
 		$payments = $this->get_payments();
 		if(isset($payments[$payment_id]))
 		{
@@ -287,10 +273,8 @@ class Sale_lib
 	}
 
 	// Multiple Payments
-	public function edit_payment()
+	public function edit_payment($payment_id, $payment_amount)
 	{
-        $payment_id = null; 
-        $payment_amount = null;
 		$payments = $this->get_payments();
 		if(isset($payments[$payment_id]))
 		{
@@ -305,9 +289,8 @@ class Sale_lib
 	}
 
 	// Multiple Payments
-	public function delete_payment()
+	public function delete_payment($payment_id)
 	{
-        $payment_id = null;
 		$payments = $this->get_payments();
 		unset($payments[urldecode($payment_id)]);
 		$this->set_payments($payments);
@@ -457,9 +440,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_customer');
 	}
 
-	public function set_customer()
+	public function set_customer($customer_id)
 	{
-        $customer_id = 0;
 		$this->CI->session->set_userdata('sales_customer', $customer_id);
 	}
 
@@ -478,9 +460,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_employee');
 	}
 
-	public function set_employee()
+	public function set_employee($employee_id)
 	{
-        $employee_id = '';
 		$this->CI->session->set_userdata('sales_employee', $employee_id);
 	}
 
@@ -506,9 +487,8 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_mode');
 	}
 
-	public function set_mode()
+	public function set_mode($mode)
 	{
-        $mode = null;
 		$this->CI->session->set_userdata('sales_mode', $mode);
 	}
 
@@ -530,9 +510,8 @@ class Sale_lib
 		return $this->CI->session->userdata('dinner_table');
 	}
 
-	public function set_dinner_table()
+	public function set_dinner_table($dinner_table)
 	{
-        $dinner_table= null;
 		$this->CI->session->set_userdata('dinner_table', $dinner_table);
 	}
 
@@ -551,15 +530,13 @@ class Sale_lib
 		return $this->CI->session->userdata('sales_location');
 	}
 
-	public function set_sale_location()
+	public function set_sale_location($location)
 	{
-        $location = null;
 		$this->CI->session->set_userdata('sales_location', $location);
 	}
 
-	public function set_payment_type()
+	public function set_payment_type($payment_type)
 	{
-        $payment_type = null;
 		$this->CI->session->set_userdata('payment_type', $payment_type);
 	}
 
@@ -573,9 +550,8 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_location');
 	}
 
-	public function set_giftcard_remainder()
+	public function set_giftcard_remainder($value)
 	{
-        $value = null;
 		$this->CI->session->set_userdata('sales_giftcard_remainder', $value);
 	}
 
@@ -589,9 +565,8 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_giftcard_remainder');
 	}
 
-	public function set_rewards_remainder()
+	public function set_rewards_remainder($value)
 	{
-        $value = null;
 		$this->CI->session->set_userdata('sales_rewards_remainder', $value);
 	}
 
@@ -605,18 +580,8 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_rewards_remainder');
 	}
 
-	public function add_item()
+	public function add_item(&$item_id, $quantity = 1, $item_location, $discount = 0, $price = NULL, $description = NULL, $serialnumber = NULL, $include_deleted = FALSE, $print_option = '0', $stock_type = HAS_STOCK)
 	{
-        $item_id = null; 
-        $quantity = 1; 
-        $item_location = null;
-        $discount = 0;
-        $price = NULL;
-        $description = NULL;
-        $serialnumber = NULL;
-        $include_deleted = FALSE;
-        $print_option = '0';
-        $stock_type = NULL;
 		$item_info = $this->CI->Item->get_info_by_id_or_number($item_id);
 
 		//make sure item exists
@@ -727,10 +692,8 @@ class Sale_lib
 		return TRUE;
 	}
 
-	public function out_of_stock()
+	public function out_of_stock($item_id, $item_location)
 	{
-        $item_id = '';
-        $item_location = '';
 		//make sure item exists
 		if($item_id != -1)
 		{
@@ -785,7 +748,7 @@ class Sale_lib
 		return -1;
 	}
 
-	public function edit_item($line = '', $description = '', $serialnumber = '', $quantity = 0, $discount = '', $price = '')
+	public function edit_item($line, $description, $serialnumber, $quantity, $discount, $price)
 	{
 		$items = $this->get_cart();
 		if(isset($items[$line]))

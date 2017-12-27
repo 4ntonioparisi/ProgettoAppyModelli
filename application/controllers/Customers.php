@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Persons.php");
 
@@ -21,7 +21,7 @@ class Customers extends Persons
 	{
 		$data['table_headers'] = $this->xss_clean(get_customer_manage_table_headers());
 
-		$this->load->view('people/manage');
+		$this->load->view('people/manage', $data);
 	}
 
 	/*
@@ -61,7 +61,7 @@ class Customers extends Persons
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$customers = $this->Customer->search();
+		$customers = $this->Customer->search($search, $limit, $offset, $sort, $order);
 		$total_rows = $this->Customer->get_found_rows($search);
 
 		$data_rows = array();
@@ -203,7 +203,7 @@ class Customers extends Persons
 			}
 		}
 
-		$this->load->view("customers/form");
+		$this->load->view("customers/form", $data);
 	}
 
 	/*
@@ -336,7 +336,7 @@ class Customers extends Persons
 
 	public function excel_import()
 	{
-		$this->load->view('customers/form_excel_import');
+		$this->load->view('customers/form_excel_import', NULL);
 	}
 
 	public function do_excel_import()

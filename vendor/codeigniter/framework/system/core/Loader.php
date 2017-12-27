@@ -484,7 +484,7 @@ class CI_Loader {
 	 *				or leave it to the Output class
 	 * @return	object|string
 	 */
-	public function view($view = '', $vars = array(), $return = FALSE)
+	public function view($view, $vars = array(), $return = FALSE)
 	{
 		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
 	}

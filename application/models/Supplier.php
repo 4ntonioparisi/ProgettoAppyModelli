@@ -250,7 +250,7 @@ class Supplier extends Person
 	/*
 	Perform a search on suppliers
 	*/
-	public function search()
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'last_name', $order = 'asc')
 	{
 		$this->db->from('suppliers');
 		$this->db->join('people', 'suppliers.person_id = people.person_id');

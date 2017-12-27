@@ -1,4 +1,4 @@
-<?php 
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Secure_Controller.php");
 
@@ -71,17 +71,17 @@ class Receivings extends Secure_Controller
 	
 	public function set_comment()
 	{
-		$this->receiving_lib->set_comment();
+		$this->receiving_lib->set_comment($this->input->post('comment'));
 	}
 
 	public function set_print_after_sale()
 	{
-		$this->receiving_lib->set_print_after_sale();
+		$this->receiving_lib->set_print_after_sale($this->input->post('recv_print_after_sale'));
 	}
 	
 	public function set_reference()
 	{
-		$this->receiving_lib->set_reference();
+		$this->receiving_lib->set_reference($this->input->post('recv_reference'));
 	}
 	
 	public function add()
@@ -127,7 +127,7 @@ class Receivings extends Secure_Controller
 
 		if($this->form_validation->run() != FALSE)
 		{
-			$this->receiving_lib->edit_item();
+			$this->receiving_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $price);
 		}
 		else
 		{
@@ -158,7 +158,7 @@ class Receivings extends Secure_Controller
 		$data['selected_supplier_id'] = $receiving_info['supplier_id'];
 		$data['receiving_info'] = $receiving_info;
 	
-		$this->load->view('receivings/form');
+		$this->load->view('receivings/form', $data);
 	}
 
 	public function delete_item($item_number)
@@ -237,7 +237,7 @@ class Receivings extends Secure_Controller
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id'] = 'RECV ' . $this->Receiving->save();
+		$data['receiving_id'] = 'RECV ' . $this->Receiving->save($data['cart'], $supplier_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
 
 		$data = $this->xss_clean($data);
 
@@ -252,7 +252,7 @@ class Receivings extends Secure_Controller
 
 		$data['print_after_sale'] = $this->receiving_lib->is_print_after_sale();
 
-		$this->load->view("receivings/receipt");
+		$this->load->view("receivings/receipt",$data);
 
 		$this->receiving_lib->clear_all();
 	}
@@ -318,7 +318,7 @@ class Receivings extends Secure_Controller
 
 		$data = $this->xss_clean($data);
 		
-		$this->load->view("receivings/receipt");
+		$this->load->view("receivings/receipt", $data);
 
 		$this->receiving_lib->clear_all();
 	}
@@ -367,7 +367,7 @@ class Receivings extends Secure_Controller
 
 		$data = $this->xss_clean($data);
 
-		$this->load->view("receivings/receiving");
+		$this->load->view("receivings/receiving", $data);
 	}
 	
 	public function save($receiving_id = -1)

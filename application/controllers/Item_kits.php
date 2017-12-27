@@ -1,4 +1,4 @@
-<?php 
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Secure_Controller.php");
 
@@ -36,7 +36,7 @@ class Item_kits extends Secure_Controller
 	{
 		$data['table_headers'] = $this->xss_clean(get_item_kits_manage_table_headers());
 
-		$this->load->view('item_kits/manage');
+		$this->load->view('item_kits/manage', $data);
 	}
 
 	/*
@@ -50,7 +50,7 @@ class Item_kits extends Secure_Controller
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$item_kits = $this->Item_kit->search();
+		$item_kits = $this->Item_kit->search($search, $limit, $offset, $sort, $order);
 		$total_rows = $this->Item_kit->get_found_rows($search);
 
 		$data_rows = array();
@@ -114,7 +114,7 @@ class Item_kits extends Secure_Controller
 		$data['selected_kit_item_id'] = $info->kit_item_id;
 		$data['selected_kit_item'] = ($item_kit_id > 0 && isset($info->kit_item_id)) ? $info->item_name : '';
 
-		$this->load->view("item_kits/form");
+		$this->load->view("item_kits/form", $data);
 	}
 	
 	public function save($item_kit_id = -1)
@@ -128,7 +128,7 @@ class Item_kits extends Secure_Controller
 			'description' => $this->input->post('description')
 		);
 		
-		if($this->Item_kit->save())
+		if($this->Item_kit->save($item_kit_data, $item_kit_id))
 		{
 			$success = TRUE;
 			$new_item = FALSE;
@@ -154,7 +154,7 @@ class Item_kits extends Secure_Controller
 
 			}
 
-			$success = $this->Item_kit_items->save();
+			$success = $this->Item_kit_items->save($item_kit_items, $item_kit_id);
 
 			$item_kit_data = $this->xss_clean($item_kit_data);
 
@@ -223,7 +223,7 @@ class Item_kits extends Secure_Controller
 		$data['barcode_config'] = $barcode_config;
 
 		// display barcodes
-		$this->load->view("barcodes/barcode_sheet");
+		$this->load->view("barcodes/barcode_sheet", $data);
 	}
 }
 ?>

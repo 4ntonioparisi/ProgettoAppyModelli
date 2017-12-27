@@ -110,10 +110,8 @@ class Giftcard extends CI_Model
 	/*
 	Inserts or updates a giftcard
 	*/
-	public function save()
+	public function save(&$giftcard_data, $giftcard_id = -1)
 	{
-        &$giftcard_data = NULL;
-        $giftcard_id = NULL;
 		if($giftcard_id == -1 || !$this->exists($giftcard_id))
 		{
 			if($this->db->insert('giftcards', $giftcard_data))
@@ -204,13 +202,8 @@ class Giftcard extends CI_Model
 	/*
 	Performs a search on giftcards
 	*/
-	public function search()
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'giftcard_number', $order = 'asc')
 	{
-        $search = NULL; 
-        $rows = NULL; 
-        $limit_from = NULL 
-        $sort = NULL; 
-        $order = NULL;
 		$this->db->from('giftcards');
 		$this->db->join('people', 'giftcards.person_id = people.person_id', 'left');
 		$this->db->group_start();

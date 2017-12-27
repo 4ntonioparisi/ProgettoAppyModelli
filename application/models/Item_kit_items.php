@@ -37,10 +37,8 @@ class Item_kit_items extends CI_Model
 	/*
 	Inserts or updates an item kit's items
 	*/
-	public function save()
+	public function save(&$item_kit_items_data, $item_kit_id)
 	{
-        &$item_kit_items_data = NULL; 
-        $item_kit_id = NULL;
 		$success = TRUE;
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing
