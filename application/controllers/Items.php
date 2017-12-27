@@ -26,7 +26,7 @@ class Items extends Secure_Controller
 			'search_custom' => $this->lang->line('items_search_custom_items'),
 			'is_deleted' => $this->lang->line('items_is_deleted'));
 
-		$this->load->view('items/manage', $data);
+		$this->load->view('items/manage');
 	}
 
 	/*
@@ -56,7 +56,7 @@ class Items extends Secure_Controller
 		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
 		$filters = array_merge($filters, $filledup);
 
-		$items = $this->Item->search($search, $filters, $limit, $offset, $sort, $order);
+		$items = $this->Item->search();
 
 		$total_rows = $this->Item->get_found_rows($search, $filters);
 
@@ -253,7 +253,7 @@ class Items extends Secure_Controller
 			$data['stock_locations'] = $location_array;
 		}
 
-		$this->load->view('items/form', $data);
+		$this->load->view('items/form');
 	}
 
 	public function inventory($item_id = -1)
@@ -276,7 +276,7 @@ class Items extends Secure_Controller
 			$data['item_quantities'][$location['location_id']] = $quantity;
 		}
 
-		$this->load->view('items/form_inventory', $data);
+		$this->load->view('items/form_inventory');
 	}
 	
 	public function count_details($item_id = -1)
@@ -299,7 +299,7 @@ class Items extends Secure_Controller
 			$data['item_quantities'][$location['location_id']] = $quantity;
 		}
 
-		$this->load->view('items/form_count_details', $data);
+		$this->load->view('items/form_count_details');
 	}
 
 	public function generate_barcodes($item_ids)
@@ -327,13 +327,13 @@ class Items extends Secure_Controller
 				$save_item = array('item_number' => $item['item_number']);
 
 				// update the item in the database in order to save the barcode field
-				$this->Item->save($save_item, $item['item_id']);
+				$this->Item->save();
 			}
 		}
 		$data['items'] = $result;
 
 		// display barcodes
-		$this->load->view('barcodes/barcode_sheet', $data);
+		$this->load->view('barcodes/barcode_sheet');
 	}
 
 	public function bulk_edit()
@@ -356,7 +356,7 @@ class Items extends Secure_Controller
 			1  => $this->lang->line('items_change_all_to_serialized'),
 			0  => $this->lang->line('items_change_all_to_unserialized'));
 
-		$this->load->view('items/form_bulk', $data);
+		$this->load->view('items/form_bulk');
 	}
 
 	public function save($item_id = -1)
@@ -414,7 +414,7 @@ class Items extends Secure_Controller
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$cur_item_info = $this->Item->get_info($item_id);
 		
-		if($this->Item->save($item_data, $item_id))
+		if($this->Item->save())
 		{
 			$success = TRUE;
 			$new_item = FALSE;
@@ -437,7 +437,7 @@ class Items extends Secure_Controller
 					$items_taxes_data[] = array('name' => $tax_names[$k], 'percent' => $tax_percentage);
 				}
 			}
-			$success &= $this->Item_taxes->save($items_taxes_data, $item_id);
+			$success &= $this->Item_taxes->save();
 
 			//Save item quantity
 			$stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
@@ -450,7 +450,7 @@ class Items extends Secure_Controller
 				$item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
 				if($item_quantity->quantity != $updated_quantity || $new_item)
 				{
-					$success &= $this->Item_quantity->save($location_detail, $item_id, $location['location_id']);
+					$success &= $this->Item_quantity->save();
 
 					$inv_data = array(
 						'trans_date' => date('Y-m-d H:i:s'),
@@ -528,7 +528,7 @@ class Items extends Secure_Controller
 	public function remove_logo($item_id)
 	{
 		$item_data = array('pic_filename' => NULL);
-		$result = $this->Item->save($item_data, $item_id);
+		$result = $this->Item->save();
 
 		echo json_encode(array('success' => $result));
 	}
@@ -557,7 +557,7 @@ class Items extends Secure_Controller
 			'quantity' => $item_quantity->quantity + parse_decimals($this->input->post('newquantity'))
 		);
 
-		if($this->Item_quantity->save($item_quantity_data, $item_id, $location_id))
+		if($this->Item_quantity->save())
 		{
 			$message = $this->xss_clean($this->lang->line('items_successful_updating') . ' ' . $cur_item_info->name);
 			
@@ -647,7 +647,7 @@ class Items extends Secure_Controller
 	
 	public function excel_import()
 	{
-		$this->load->view('items/form_excel_import', NULL);
+		$this->load->view('items/form_excel_import');
 	}
 
 	public function do_excel_import()
@@ -738,7 +738,7 @@ class Items extends Secure_Controller
 						// save tax values
 						if(count($items_taxes_data) > 0)
 						{
-							$this->Item_taxes->save($items_taxes_data, $item_data['item_id']);
+							$this->Item_taxes->save();
 						}
 
 						// quantities & inventory Info
@@ -760,7 +760,7 @@ class Items extends Secure_Controller
 									'location_id' => $location_id,
 									'quantity' => $data[$col + 1],
 								);
-								$this->Item_quantity->save($item_quantity_data, $item_data['item_id'], $location_id);
+								$this->Item_quantity->save();
 
 								$excel_data = array(
 									'trans_items' => $item_data['item_id'],
@@ -787,7 +787,7 @@ class Items extends Secure_Controller
 								'location_id' => $location_id,
 								'quantity' => 0,
 							);
-							$this->Item_quantity->save($item_quantity_data, $item_data['item_id'], $data[$col]);
+							$this->Item_quantity->save();
 
 							$excel_data = array(
 								'trans_items' => $item_data['item_id'],
@@ -847,7 +847,7 @@ class Items extends Secure_Controller
 			if (sizeof($images) > 0) {
 				$new_pic_filename = pathinfo($images[0], PATHINFO_BASENAME);
 				$item_data = array('pic_filename' => $new_pic_filename);
-				$this->Item->save($item_data, $item->item_id);
+				$this->Item->save();
 			}
 		}
 	}
