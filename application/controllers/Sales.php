@@ -47,7 +47,7 @@ class Sales extends Secure_Controller
 					'only_check' => $this->lang->line('sales_check_filter'));
 			}
 
-			$this->load->view('sales/manage', $data);
+			$this->load->view('sales/manage');
 		}
 	}
 
@@ -81,7 +81,7 @@ class Sales extends Secure_Controller
 		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
 		$filters = array_merge($filters, $filledup);
 
-		$sales = $this->Sale->search($search, $filters, $limit, $offset, $sort, $order);
+		$sales = $this->Sale->search();
 		$total_rows = $this->Sale->get_found_rows($search, $filters);
 		$payments = $this->Sale->get_payments_summary($search, $filters);
 		$payment_summary = $this->xss_clean(get_sales_manage_payments_summary($payments, $sales, $this));
@@ -165,33 +165,33 @@ class Sales extends Secure_Controller
 
 	public function set_comment()
 	{
-		$this->sale_lib->set_comment($this->input->post('comment'));
+		$this->sale_lib->set_comment();
 	}
 
 	public function set_invoice_number()
 	{
-		$this->sale_lib->set_invoice_number($this->input->post('sales_invoice_number'));
+		$this->sale_lib->set_invoice_number();
 	}
 
 	public function set_invoice_number_enabled()
 	{
-		$this->sale_lib->set_invoice_number_enabled($this->input->post('sales_invoice_number_enabled'));
+		$this->sale_lib->set_invoice_number_enabled();
 	}
 
 	public function set_payment_type()
 	{
-		$this->sale_lib->set_payment_type($this->input->post('selected_payment_type'));
+		$this->sale_lib->set_payment_type();
 		$this->_reload();
 	}
 
 	public function set_print_after_sale()
 	{
-		$this->sale_lib->set_print_after_sale($this->input->post('sales_print_after_sale'));
+		$this->sale_lib->set_print_after_sale();
 	}
 
 	public function set_email_receipt()
 	{
-		$this->sale_lib->set_email_receipt($this->input->post('email_receipt'));
+		$this->sale_lib->set_email_receipt();
 	}
 
 	// Multiple Payments
@@ -250,7 +250,7 @@ class Sales extends Secure_Controller
 					$data['warning'] = $this->lang->line('giftcards_remaining_balance', $giftcard_num, $new_giftcard_value);
 					$amount_tendered = min($this->sale_lib->get_amount_due(), $this->Giftcard->get_giftcard_value($giftcard_num));
 
-					$this->sale_lib->add_payment($payment_type, $amount_tendered);
+					$this->sale_lib->add_payment();
 				}
 			}
 			elseif($payment_type == $this->lang->line('sales_rewards'))
@@ -281,14 +281,14 @@ class Sales extends Secure_Controller
 						$data['warning'] = $this->lang->line('rewards_remaining_balance'). $new_reward_value;
 						$amount_tendered = min($this->sale_lib->get_amount_due(), $points);
 
-						$this->sale_lib->add_payment($payment_type, $amount_tendered);
+						$this->sale_lib->add_payment();
 					}
 				}
 			}
 			else
 			{
 				$amount_tendered = $this->input->post('amount_tendered');
-				$this->sale_lib->add_payment($payment_type, $amount_tendered);
+				$this->sale_lib->add_payment();
 			}
 		}
 
@@ -410,7 +410,7 @@ class Sales extends Secure_Controller
 
 		if($this->form_validation->run() != FALSE)
 		{
-			$this->sale_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $price);
+			$this->sale_lib->edit_item();
 		}
 		else
 		{
@@ -467,7 +467,7 @@ class Sales extends Secure_Controller
 		$customer_id = $this->sale_lib->get_customer();
 		$data["invoice_number"] = $this->sale_lib->get_invoice_number();
 		$data["quote_number"] = $this->sale_lib->get_quote_number();
-		$customer_info = $this->_load_customer_data($customer_id, $data);
+		$customer_info = $this->_load_customer_data($customer_id);
 		if($customer_info != NULL)
 		{
 			$data["customer_comments"] = $customer_info->comments;
@@ -506,7 +506,7 @@ class Sales extends Secure_Controller
 			// generate final invoice number (if using the invoice in sales by receipt mode then the invoice number can be manually entered or altered in some way
 			if($this->sale_lib->is_sale_by_receipt_mode())
 			{
-				$this->sale_lib->set_invoice_number($this->input->post('invoice_number'), $keep_custom = TRUE);
+				$this->sale_lib->set_invoice_number();
 				$invoice_format = $this->sale_lib->get_invoice_number();
 				if(empty($invoice_format))
 				{
@@ -531,7 +531,7 @@ class Sales extends Secure_Controller
 				$data['sale_status'] = COMPLETED;
 
 				// Save the data to the sales table
-				$data['sale_id_num'] = $this->Sale->save($data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $data["quote_number"], $data['payments'], $data['dinner_table'], $data['taxes']);
+				$data['sale_id_num'] = $this->Sale->save();
 				$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
 				// Resort and filter cart lines for printing
@@ -546,7 +546,7 @@ class Sales extends Secure_Controller
 				else
 				{
 					$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['sale_id']);
-					$this->load->view('sales/invoice', $data);
+					$this->load->view('sales/invoice');
 					$this->sale_lib->clear_all();
 				}
 			}
@@ -575,7 +575,7 @@ class Sales extends Secure_Controller
 				$data['quote_number'] = $quote_number;
 				$data['sale_status'] = SUSPENDED;
 
-				$data['sale_id_num'] = $this->Sale->save($data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $quote_number, $data['payments'], $data['dinner_table'], $data['taxes']);
+				$data['sale_id_num'] = $this->Sale->save();
 				$this->sale_lib->set_suspended_id($data['sale_id_num']);
 
 				$data['cart'] = $this->sale_lib->sort_and_filter_cart($data['cart']);
@@ -584,7 +584,7 @@ class Sales extends Secure_Controller
 
 				$data['barcode'] = NULL;
 
-				$this->load->view('sales/quote', $data);
+				$this->load->view('sales/quote');
 				$this->sale_lib->clear_mode();
 				$this->sale_lib->clear_all();
 			}
@@ -593,7 +593,7 @@ class Sales extends Secure_Controller
 		{
 			// Save the data to the sales table
 			$data['sale_status'] = '0'; // Complete
-			$data['sale_id_num'] = $this->Sale->save($data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], NULL, NULL, $data['payments'], $data['dinner_table'], $data['taxes']);
+			$data['sale_id_num'] = $this->Sale->save();
 
 			$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
@@ -611,7 +611,7 @@ class Sales extends Secure_Controller
 				// Reload (sorted) and filter the cart line items for printing purposes
 				$data['cart'] = $this->get_filtered($this->sale_lib->get_cart_reordered($data['sale_id_num']));
 
-				$this->load->view('sales/receipt', $data);
+				$this->load->view('sales/receipt');
 				$this->sale_lib->clear_all();
 			}
 		}
@@ -637,7 +637,7 @@ class Sales extends Secure_Controller
 			$text = $this->token_lib->render($text, $tokens);
 
 			// generate email attachment: invoice in pdf format
-			$html = $this->load->view("sales/" . $type . "_email", $sale_data, TRUE);
+			$html = $this->load->view("sales/" . $type . "_email");
 			// load pdf helper
 			$this->load->helper(array('dompdf', 'file'));
 			$filename = sys_get_temp_dir() . '/' . $this->lang->line("sales_N") . '-' . str_replace('/', '-', $number) . '.pdf';
@@ -670,7 +670,7 @@ class Sales extends Secure_Controller
 			$to = $sale_data['customer_email'];
 			$subject = $this->lang->line('sales_receipt');
 
-			$text = $this->load->view('sales/receipt_email', $sale_data, TRUE);
+			$text = $this->load->view('sales/receipt_email');
 
 			$result = $this->email_lib->sendEmail($to, $subject, $text);
 
@@ -786,7 +786,7 @@ class Sales extends Secure_Controller
 
 		$employee_info = $this->Employee->get_info($this->sale_lib->get_employee());
 		$data['employee'] = $employee_info->first_name . ' ' . $employee_info->last_name[0];
-		$this->_load_customer_data($this->sale_lib->get_customer(), $data);
+		$this->_load_customer_data($this->sale_lib->get_customer());
 
 		$data['sale_id_num'] = $sale_id;
 		$data['sale_id'] = 'POS ' . $sale_id;
@@ -816,7 +816,7 @@ class Sales extends Secure_Controller
 	private function _reload($data = array())
 	{
 		$data['cart'] = $this->sale_lib->get_cart();
-		$customer_info = $this->_load_customer_data($this->sale_lib->get_customer(), $data, TRUE);
+		$customer_info = $this->_load_customer_data($this->sale_lib->get_customer(), TRUE);
 
 		if($this->config->item('invoice_enable') == '0')
 		{
@@ -889,7 +889,7 @@ class Sales extends Secure_Controller
 		$invoice_format = $this->config->item('sales_invoice_format');
 		$data['invoice_format'] = $invoice_format;
 
-		$this->set_invoice_number($invoice_format);
+		$this->set_invoice_number();
 		$data['invoice_number'] = $invoice_format;
 
 		$data['invoice_number_enabled'] = $this->sale_lib->is_invoice_mode();
@@ -910,20 +910,20 @@ class Sales extends Secure_Controller
 		}
 		$data = $this->xss_clean($data);
 
-		$this->load->view("sales/register", $data);
+		$this->load->view("sales/register");
 	}
 
 	public function receipt($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/receipt', $data);
+		$this->load->view('sales/receipt');
 		$this->sale_lib->clear_all();
 	}
 
 	public function invoice($sale_id)
 	{
 		$data = $this->_load_sale_data($sale_id);
-		$this->load->view('sales/invoice', $data);
+		$this->load->view('sales/invoice');
 		$this->sale_lib->clear_all();
 	}
 
@@ -959,7 +959,7 @@ class Sales extends Secure_Controller
 
 		// don't allow gift card to be a payment option in a sale transaction edit because it's a complex change
 		$data['payment_options'] = $this->xss_clean($this->Sale->get_payment_options(FALSE));
-		$this->load->view('sales/form', $data);
+		$this->load->view('sales/form');
 	}
 
 	public function delete($sale_id = -1, $update_inventory = TRUE)
@@ -1064,7 +1064,7 @@ class Sales extends Secure_Controller
 
 		$data = array();
 		$sales_taxes = array();
-		if($this->Sale->save($sale_status, $cart, $customer_id, $employee_id, $comment, $invoice_number, $quote_number, $payments, $dinner_table, $sales_taxes) == '-1')
+		if($this->Sale->save())
 		{
 			$data['error'] = $this->lang->line('sales_unsuccessfully_suspended_sale');
 		}
@@ -1083,7 +1083,7 @@ class Sales extends Secure_Controller
 		$data = array();
 		$data['suspended_sales'] = $this->xss_clean($this->Sale->get_all_suspended($customer_id));
 		$data['dinner_table_enable'] = $this->config->item('dinner_table_enable');
-		$this->load->view('sales/suspended', $data);
+		$this->load->view('sales/suspended');
 	}
 
 	/*
