@@ -330,8 +330,13 @@ class Customer extends Person
 	/*
 	Performs a search on customers
 	*/
-	public function search($search, $rows = 0, $limit_from = 0, $sort = 'last_name', $order = 'asc')
+	public function search()
 	{
+        $search = NULL;
+        $rows = NULL;
+        $limit_from = NULL;
+        $sort = NULL;
+        $order = NULL;
 		$this->db->from('customers');
 		$this->db->join('people', 'customers.person_id = people.person_id');
 		$this->db->group_start();
