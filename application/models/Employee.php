@@ -8,7 +8,7 @@ class Employee extends Person
 {
 	/*
 	Determines if a given person_id is an employee
-	*/
+	*/ 
 	public function exists($person_id)
 	{
 		$this->db->from('employees');
