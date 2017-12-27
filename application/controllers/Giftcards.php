@@ -13,7 +13,7 @@ class Giftcards extends Secure_Controller
 	{
 		$data['table_headers'] = $this->xss_clean(get_giftcards_manage_table_headers());
 
-		$this->load->view('giftcards/manage', $data);
+		$this->load->view('giftcards/manage');
 	}
 
 	/*
@@ -27,7 +27,7 @@ class Giftcards extends Secure_Controller
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$giftcards = $this->Giftcard->search($search, $limit, $offset, $sort, $order);
+		$giftcards = $this->Giftcard->search();
 		$total_rows = $this->Giftcard->get_found_rows($search);
 
 		$data_rows = array();
@@ -85,7 +85,7 @@ class Giftcards extends Secure_Controller
 
 		$data = $this->xss_clean($data);
 
-		$this->load->view("giftcards/form", $data);
+		$this->load->view("giftcards/form");
 	}
 	
 	public function save($giftcard_id = -1)
@@ -104,7 +104,7 @@ class Giftcards extends Secure_Controller
 			'person_id' => $this->input->post('person_id') == '' ? NULL : $this->input->post('person_id')
 		);
 
-		if($this->Giftcard->save($giftcard_data, $giftcard_id))
+		if($this->Giftcard->save())
 		{
 			$giftcard_data = $this->xss_clean($giftcard_data);
 			
