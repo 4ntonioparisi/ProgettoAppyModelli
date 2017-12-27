@@ -14,7 +14,7 @@ class Dinner_table extends CI_Model
 		return ($this->db->get()->num_rows() >= 1);
 	}
 
-	public function save($table_data, $dinner_table_id)
+	public function save()
 	{
 		$table_data_to_save = array('name' => $table_data['name'], 'deleted' => 0);
 
@@ -74,7 +74,7 @@ class Dinner_table extends CI_Model
 	/**
 	Deletes one table
 	*/
-	public function delete($dinner_table_id)
+	public function delete()
 	{
 		$this->db->where('dinner_table_id', $dinner_table_id);
 

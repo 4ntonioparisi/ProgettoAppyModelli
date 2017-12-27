@@ -229,7 +229,7 @@ class Config extends Secure_Controller
 		// load mailchimp lists associated to the given api key, already XSS cleaned in the private function
 		$data['mailchimp']['lists'] = $this->_mailchimp();
 
-		$this->load->view("configs/manage", $data);
+		$this->load->view("configs/manage");
 	}
 
 
@@ -493,7 +493,7 @@ class Config extends Secure_Controller
 
 		$stock_locations = $this->xss_clean($stock_locations);
 
-		$this->load->view('partial/stock_locations', array('stock_locations' => $stock_locations));
+		$this->load->view('partial/stock_locations');
 	}
 
 	public function ajax_dinner_tables()
@@ -502,7 +502,7 @@ class Config extends Secure_Controller
 
 		$dinner_tables = $this->xss_clean($dinner_tables);
 
-		$this->load->view('partial/dinner_tables', array('dinner_tables' => $dinner_tables));
+		$this->load->view('partial/dinner_tables');
 	}
 
 	public function ajax_tax_categories()
@@ -511,7 +511,7 @@ class Config extends Secure_Controller
 
 		$tax_categories = $this->xss_clean($tax_categories);
 
-		$this->load->view('partial/tax_categories', array('tax_categories' => $tax_categories));
+		$this->load->view('partial/tax_categories');
 	}
 
 	public function ajax_customer_rewards()
@@ -520,7 +520,7 @@ class Config extends Secure_Controller
 
 		$customer_rewards = $this->xss_clean($customer_rewards);
 
-		$this->load->view('partial/customer_rewards', array('customer_rewards' => $customer_rewards));
+		$this->load->view('partial/customer_rewards');
 	}
 
 	private function _clear_session_state()
@@ -547,7 +547,7 @@ class Config extends Secure_Controller
 				$not_to_delete[] = $location_id;
 				// save or update
 				$location_data = array('location_name' => $value);
-				if($this->Stock_location->save($location_data, $location_id))
+				if($this->Stock_location->save())
 				{
 					$this->_clear_session_state();
 				}
@@ -561,7 +561,7 @@ class Config extends Secure_Controller
 		{
 			if(!in_array($location_data['location_id'], $not_to_delete))
 			{
-				$this->Stock_location->delete($location_data['location_id']);
+				$this->Stock_location->delete();
 			}
 		}
 
@@ -581,7 +581,7 @@ class Config extends Secure_Controller
 
 		$dinner_table_enable = $this->input->post('dinner_table_enable') != NULL;
 
-		$this->Appconfig->save('dinner_table_enable', $dinner_table_enable);
+		$this->Appconfig->save();
 
 		if($dinner_table_enable)
 		{
@@ -594,7 +594,7 @@ class Config extends Secure_Controller
 					$not_to_delete[] = $dinner_table_id;
 					// save or update
 					$table_data = array('name' => $value);
-					if($this->Dinner_table->save($table_data, $dinner_table_id))
+					if($this->Dinner_table->save())
 					{
 						$this->_clear_session_state();
 					}
@@ -608,7 +608,7 @@ class Config extends Secure_Controller
 			{
 				if(!in_array($table['dinner_table_id'], $not_to_delete))
 				{
-					$this->Dinner_table->delete($table['dinner_table_id']);
+					$this->Dinner_table->delete();
 				}
 			}
 		}
@@ -719,7 +719,7 @@ class Config extends Secure_Controller
 
 		$customer_reward_enable = $this->input->post('customer_reward_enable') != NULL;
 
-		$this->Appconfig->save('customer_reward_enable', $customer_reward_enable);
+		$this->Appconfig->save();
 
 		if($customer_reward_enable)
 		{
@@ -746,7 +746,7 @@ class Config extends Secure_Controller
 				{
 					// save or update
 					$package_data = array('package_name' => $value['package_name'], 'points_percent' => $value['points_percent']);
-					$this->Customer_rewards->save($package_data, $key);
+					$this->Customer_rewards->save();
 				}
 			}
 
@@ -757,7 +757,7 @@ class Config extends Secure_Controller
 			{
 				if(!in_array($reward_category['package_id'], $not_to_delete))
 				{
-					$this->Customer_rewards->delete($reward_category['package_id']);
+					$this->Customer_rewards->delete();
 				}
 			}
 		}
