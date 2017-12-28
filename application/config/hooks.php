@@ -1,4 +1,6 @@
 <?php
+class MyException extends Exception { }
+
 defined('BASEPATH') or trigger_error('No direct script access allowed', E_USER_NOTICE);
 
 /*
@@ -38,7 +40,7 @@ $hook['pre_system'] = function() {
 	try {
 		$dotenv = new Dotenv\Dotenv($config_path);
 		$dotenv->overload();
-	} catch(Exception $e) {
+	} catch(MyException $e) {
 		// continue, .env file not present
 	}
 };
