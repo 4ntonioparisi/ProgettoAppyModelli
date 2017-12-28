@@ -109,7 +109,7 @@ class Receivings extends Secure_Controller
 		$this->_reload($data);
 	}
 
-	public function edit_item($item_id)
+	public function edit_item()
 	{
 		$data = array();
 

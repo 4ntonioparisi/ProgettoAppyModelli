@@ -519,7 +519,7 @@ class Items extends Secure_Controller
 		return strlen($this->upload->display_errors()) == 0 || !strcmp($this->upload->display_errors(), '<p>'.$this->lang->line('upload_no_file_selected').'</p>');
 	}
 
-	public function remove_logo($item_id)
+	public function remove_logo()
 	{
 		$result = $this->Item->save();
 
