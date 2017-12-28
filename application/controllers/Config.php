@@ -47,13 +47,13 @@ class Config extends Secure_Controller
 
 					$basename = 'license/' . $fileinfo->getBasename('.version');
 
-					$license[$i]['title'] = $this->xss_clean(file_get_contents($basename . '.version', NULL, NULL, 0, 100));
+					$license[$i]['title'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($basename)) . '.version', NULL, NULL, 0, 100));
 
 					$license_text_file = $basename . '.license';
 
 					if(file_exists($license_text_file))
 					{
-						$license[$i]['text'] = $this->xss_clean(file_get_contents($license_text_file , NULL, NULL, 0, 2000));
+						$license[$i]['text'] = $this->xss_clean(file_get_contents(MY_BASEDIR . basename(realpath($license_text_file)) , NULL, NULL, 0, 2000));
 					}
 					else
 					{
@@ -916,10 +916,10 @@ class Config extends Secure_Controller
 			$result = FALSE;
 
 			// Chmod the file
-			@chmod($config_path, 0777);
+			chmod(MY_BASEDIR . basename(realpath($config_path)) , 0777);
 
 			// Write the new config.php file
-			$handle = fopen($config_path, 'w+');
+			$handle = fopen(MY_BASEDIR . basename(realpath($config_path)), 'w+');
 
 			// Verify file permissions
 			if(is_writable($config_path))
@@ -931,7 +931,7 @@ class Config extends Secure_Controller
 			fclose($handle);
 
 			// Chmod the file
-			@chmod($config_path, 0444);
+			chmod(MY_BASEDIR . basename(realpath($config_path)), 0444);
 
 			return $result;
 		}
