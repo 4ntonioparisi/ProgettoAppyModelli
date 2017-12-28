@@ -1,6 +1,6 @@
 <?php 
 
-require_once("Secure_Controller.php");
+require_once "Secure_Controller.php";
 
 class Items extends Secure_Controller
 {
@@ -110,52 +110,7 @@ class Items extends Secure_Controller
 
 		echo json_encode($suggestions);
 	}
-
-	public function suggest()
-	{
-		$suggestions = $this->xss_clean($this->Item->get_search_suggestions($this->input->post_get('term'),
-			array('search_custom' => false, 'is_deleted' => false), true));
-
-		echo json_encode($suggestions);
-	}
-
-	public function suggest_kits()
-	{
-		$suggestions = $this->xss_clean($this->Item->get_kit_search_suggestions($this->input->post_get('term'),
-			array('search_custom' => false, 'is_deleted' => false), true));
-
-		echo json_encode($suggestions);
-	}
-
 	/*
-	Gives search suggestions based on what is being searched for
-	*/
-	public function suggest_category()
-	{
-		$suggestions = $this->xss_clean($this->Item->get_category_suggestions($this->input->get('term')));
-
-		echo json_encode($suggestions);
-	}
-
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
-	public function suggest_location()
-	{
-		$suggestions = $this->xss_clean($this->Item->get_location_suggestions($this->input->get('term')));
-
-		echo json_encode($suggestions);
-	}
-	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
-	public function suggest_custom()
-	{
-		$suggestions = $this->xss_clean($this->Item->get_custom_suggestions($this->input->post('term'), $this->input->post('field_no')));
-
-		echo json_encode($suggestions);
-	}
 
 	public function get_row($item_ids)
 	{
