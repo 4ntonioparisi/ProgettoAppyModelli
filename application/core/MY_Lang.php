@@ -44,7 +44,7 @@ class MY_Lang extends CI_Lang
             //check to make sure the key is valid and load the line
             if($line == '')
             {
-            	$line = FALSE;
+            	$line = false;
             }
             else 
             {
@@ -74,7 +74,7 @@ class MY_Lang extends CI_Lang
         else
         {
             //if no arguments given, no language line available
-            $line = FALSE;
+            $line = false;
         }
         
         return $line;

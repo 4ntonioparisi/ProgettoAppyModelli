@@ -355,7 +355,7 @@ class Reports extends Secure_Controller
 		$data = array();
 		$stock_locations = $data = $this->xss_clean($this->Stock_location->get_allowed_locations('sales'));
 		$stock_locations['all'] = $this->lang->line('reports_all');
-		$data['stock_locations'] = array_reverse($stock_locations, TRUE);
+		$data['stock_locations'] = array_reverse($stock_locations, true);
 		$data['mode'] = 'sale';
 
 		$this->load->view('reports/date_input');
@@ -367,7 +367,7 @@ class Reports extends Secure_Controller
 		$data = array();
 		$stock_locations = $data = $this->xss_clean($this->Stock_location->get_allowed_locations('sales'));
 		$stock_locations['all'] =  $this->lang->line('reports_all');
-		$data['stock_locations'] = array_reverse($stock_locations, TRUE);
+		$data['stock_locations'] = array_reverse($stock_locations, true);
 		$data['mode'] = 'sale';
 
 		$this->load->view('reports/date_input');
@@ -378,7 +378,7 @@ class Reports extends Secure_Controller
 		$data = array();
 		$stock_locations = $data = $this->xss_clean($this->Stock_location->get_allowed_locations('receivings'));
 		$stock_locations['all'] =  $this->lang->line('reports_all');
-		$data['stock_locations'] = array_reverse($stock_locations, TRUE);
+		$data['stock_locations'] = array_reverse($stock_locations, true);
 		$data['mode'] = 'receiving';
 
 		$this->load->view('reports/date_input');
@@ -415,7 +415,7 @@ class Reports extends Secure_Controller
 			'summary_data_1' => $summary,
 			'yaxis_title' => $this->lang->line('reports_revenue'),
 			'xaxis_title' => $this->lang->line('reports_date'),
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -451,7 +451,7 @@ class Reports extends Secure_Controller
 			'summary_data_1' => $summary,
 			'yaxis_title' => $this->lang->line('reports_items'),
 			'xaxis_title' => $this->lang->line('reports_revenue'),
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -485,7 +485,7 @@ class Reports extends Secure_Controller
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -519,7 +519,7 @@ class Reports extends Secure_Controller
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -553,7 +553,7 @@ class Reports extends Secure_Controller
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -587,7 +587,7 @@ class Reports extends Secure_Controller
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -623,7 +623,7 @@ class Reports extends Secure_Controller
 			'summary_data_1' => $summary,
 			'yaxis_title' => $this->lang->line('reports_customers'),
 			'xaxis_title' => $this->lang->line('reports_revenue'),
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -659,7 +659,7 @@ class Reports extends Secure_Controller
 			'summary_data_1' => $summary,
 			'yaxis_title' => $this->lang->line('reports_count'),
 			'xaxis_title' => $this->lang->line('reports_discount_percent'),
-			'show_currency' => FALSE
+			'show_currency' => false
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -693,7 +693,7 @@ class Reports extends Secure_Controller
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
-			'show_currency' => TRUE
+			'show_currency' => true
 		);*/
 
 		$this->load->view('reports/graphical');
@@ -1198,7 +1198,7 @@ class Reports extends Secure_Controller
 
 		$stock_locations = $this->xss_clean($this->Stock_location->get_allowed_locations());
 		$stock_locations['all'] = $this->lang->line('reports_all');
-		$data['stock_locations'] = array_reverse($stock_locations, TRUE);
+		$data['stock_locations'] = array_reverse($stock_locations, true);
 
 		$this->load->view('reports/inventory_summary_input');
 	}

@@ -6,7 +6,7 @@ class Secure_Controller extends CI_Controller
 	* Controllers that are considered secure extend Secure_Controller, optionally a $module_id can
 	* be set to also check if a user can access a particular module in the system.
 	*/
-	public function __construct($module_id = NULL, $submodule_id = NULL)
+	public function __construct($module_id = null, $submodule_id = null)
 	{
 		parent::__construct();
 		
@@ -38,12 +38,12 @@ class Secure_Controller extends CI_Controller
 	/*
 	* Internal method to do XSS clean in the derived classes
 	*/
-	protected function xss_clean($str, $is_image = FALSE)
+	protected function xss_clean($str, $is_image = false)
 	{
 		// This setting is configurable in application/config/config.php.
 		// Users can disable the XSS clean for performance reasons
 		// (cases like intranet installation with no Internet access)
-		if($this->config->item('ospos_xss_clean') == FALSE)
+		if($this->config->item('ospos_xss_clean') == false)
 		{
 			return $str;
 		}
@@ -55,12 +55,12 @@ class Secure_Controller extends CI_Controller
 
 
 	// this is the basic set of methods most OSPOS Controllers will implement
-	public function index() { return FALSE; }
-	public function search() { return FALSE; }
-	public function suggest_search() { return FALSE; }
-	public function view() { return FALSE; }
-	public function save() { return FALSE; }
-	public function delete() { return FALSE; }
+	public function index() { return false; }
+	public function search() { return false; }
+	public function suggest_search() { return false; }
+	public function view() { return false; }
+	public function save() { return false; }
+	public function delete() { return false; }
 
 }
 ?>
