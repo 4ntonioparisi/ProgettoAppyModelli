@@ -41,15 +41,15 @@ class Items extends Secure_Controller
 		$filters = array('start_date' => $this->input->get('start_date'),
 						'end_date' => $this->input->get('end_date'),
 						'stock_location_id' => $this->item_lib->get_item_location(),
-						'empty_upc' => FALSE,
-						'low_inventory' => FALSE, 
-						'is_serialized' => FALSE,
-						'no_description' => FALSE,
-						'search_custom' => FALSE,
-						'is_deleted' => FALSE);
+						'empty_upc' => false,
+						'low_inventory' => false, 
+						'is_serialized' => false,
+						'no_description' => false,
+						'search_custom' => false,
+						'is_deleted' => false);
 		
 		// check if any filter is set in the multiselect dropdown
-		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
+		$filledup = array_fill_keys($this->input->get('filters'), true);
 		$filters = array_merge($filters, $filledup);
 
 		$items = $this->Item->search();
@@ -88,8 +88,8 @@ class Items extends Secure_Controller
 			{
 				$config['image_library'] = 'gd2';
 				$config['source_image']  = $image_path;
-				$config['maintain_ratio'] = TRUE;
-				$config['create_thumb'] = TRUE;
+				$config['maintain_ratio'] = true;
+				$config['create_thumb'] = true;
 				$config['width'] = 52;
 				$config['height'] = 32;
 				$this->image_lib->initialize($config);
@@ -106,7 +106,7 @@ class Items extends Secure_Controller
 	public function suggest_search()
 	{
 		$suggestions = $this->xss_clean($this->Item->get_search_suggestions($this->input->post_get('term'),
-			array('search_custom' => $this->input->post('search_custom'), 'is_deleted' => $this->input->post('is_deleted') != NULL), FALSE));
+			array('search_custom' => $this->input->post('search_custom'), 'is_deleted' => $this->input->post('is_deleted') != null), false));
 
 		echo json_encode($suggestions);
 	}
@@ -114,7 +114,7 @@ class Items extends Secure_Controller
 	public function suggest()
 	{
 		$suggestions = $this->xss_clean($this->Item->get_search_suggestions($this->input->post_get('term'),
-			array('search_custom' => FALSE, 'is_deleted' => FALSE), TRUE));
+			array('search_custom' => false, 'is_deleted' => false), true));
 
 		echo json_encode($suggestions);
 	}
@@ -122,7 +122,7 @@ class Items extends Secure_Controller
 	public function suggest_kits()
 	{
 		$suggestions = $this->xss_clean($this->Item->get_kit_search_suggestions($this->input->post_get('term'),
-			array('search_custom' => FALSE, 'is_deleted' => FALSE), TRUE));
+			array('search_custom' => false, 'is_deleted' => false), true));
 
 		echo json_encode($suggestions);
 	}
@@ -208,7 +208,7 @@ class Items extends Secure_Controller
 		$customer_sales_tax_support = $this->config->item('customer_sales_tax_support');
 		if($customer_sales_tax_support == '1')
 		{
-			$data['customer_sales_tax_enabled'] = TRUE;
+			$data['customer_sales_tax_enabled'] = true;
 			$tax_categories = array();
 			foreach($this->Tax->get_all_tax_categories()->result_array() as $row)
 			{
@@ -219,7 +219,7 @@ class Items extends Secure_Controller
 		}
 		else
 		{
-			$data['customer_sales_tax_enabled'] = FALSE;
+			$data['customer_sales_tax_enabled'] = false;
 			$data['tax_categories'] = array();
 			$data['selected_tax_category'] = '';
 		}
@@ -312,7 +312,7 @@ class Items extends Secure_Controller
 		{
 			$item = $this->xss_clean($item);
 			
-			// update the barcode field if empty / NULL with the newly generated barcode
+			// update the barcode field if empty / null with the newly generated barcode
 			if(empty($item['item_number']) && $this->config->item('barcode_generate_if_empty'))
 			{
 				// get the newly generated barcode
@@ -365,25 +365,25 @@ class Items extends Secure_Controller
 			'category' => $this->input->post('category'),
 			'item_type' => $this->input->post('item_type'),
 			'stock_type' => $this->input->post('stock_type'),
-			'supplier_id' => $this->input->post('supplier_id') == '' ? NULL : $this->input->post('supplier_id'),
-			'item_number' => $this->input->post('item_number') == '' ? NULL : $this->input->post('item_number'),
+			'supplier_id' => $this->input->post('supplier_id') == '' ? null : $this->input->post('supplier_id'),
+			'item_number' => $this->input->post('item_number') == '' ? null : $this->input->post('item_number'),
 			'cost_price' => parse_decimals($this->input->post('cost_price')),
 			'unit_price' => parse_decimals($this->input->post('unit_price')),
 			'reorder_level' => parse_decimals($this->input->post('reorder_level')),
 			'receiving_quantity' => parse_decimals($this->input->post('receiving_quantity')),
-			'allow_alt_description' => $this->input->post('allow_alt_description') != NULL,
-			'is_serialized' => $this->input->post('is_serialized') != NULL,
-			'deleted' => $this->input->post('is_deleted') != NULL,
-			'custom1' => $this->input->post('custom1') == NULL ? '' : $this->input->post('custom1'),
-			'custom2' => $this->input->post('custom2') == NULL ? '' : $this->input->post('custom2'),
-			'custom3' => $this->input->post('custom3') == NULL ? '' : $this->input->post('custom3'),
-			'custom4' => $this->input->post('custom4') == NULL ? '' : $this->input->post('custom4'),
-			'custom5' => $this->input->post('custom5') == NULL ? '' : $this->input->post('custom5'),
-			'custom6' => $this->input->post('custom6') == NULL ? '' : $this->input->post('custom6'),
-			'custom7' => $this->input->post('custom7') == NULL ? '' : $this->input->post('custom7'),
-			'custom8' => $this->input->post('custom8') == NULL ? '' : $this->input->post('custom8'),
-			'custom9' => $this->input->post('custom9') == NULL ? '' : $this->input->post('custom9'),
-			'custom10' => $this->input->post('custom10') == NULL ? '' : $this->input->post('custom10')
+			'allow_alt_description' => $this->input->post('allow_alt_description') != null,
+			'is_serialized' => $this->input->post('is_serialized') != null,
+			'deleted' => $this->input->post('is_deleted') != null,
+			'custom1' => $this->input->post('custom1') == null ? '' : $this->input->post('custom1'),
+			'custom2' => $this->input->post('custom2') == null ? '' : $this->input->post('custom2'),
+			'custom3' => $this->input->post('custom3') == null ? '' : $this->input->post('custom3'),
+			'custom4' => $this->input->post('custom4') == null ? '' : $this->input->post('custom4'),
+			'custom5' => $this->input->post('custom5') == null ? '' : $this->input->post('custom5'),
+			'custom6' => $this->input->post('custom6') == null ? '' : $this->input->post('custom6'),
+			'custom7' => $this->input->post('custom7') == null ? '' : $this->input->post('custom7'),
+			'custom8' => $this->input->post('custom8') == null ? '' : $this->input->post('custom8'),
+			'custom9' => $this->input->post('custom9') == null ? '' : $this->input->post('custom9'),
+			'custom10' => $this->input->post('custom10') == null ? '' : $this->input->post('custom10')
 		);
 
 		$x = $this->input->post('tax_category_id');
@@ -399,7 +399,7 @@ class Items extends Secure_Controller
 		if(!empty($upload_data['orig_name']))
 		{
 			// XSS file image sanity check
-			if($this->xss_clean($upload_data['raw_name'], TRUE) === TRUE)
+			if($this->xss_clean($upload_data['raw_name'], true) === true)
 			{
 				$item_data['pic_filename'] = $upload_data['raw_name'];
 			}
@@ -410,13 +410,13 @@ class Items extends Secure_Controller
 		
 		if($this->Item->save())
 		{
-			$success = TRUE;
-			$new_item = FALSE;
+			$success = true;
+			$new_item = false;
 			//New item
 			if($item_id == -1)
 			{
 				$item_id = $item_data['item_id'];
-				$new_item = TRUE;
+				$new_item = true;
 			}
 			
 			$items_taxes_data = array();
@@ -463,20 +463,20 @@ class Items extends Secure_Controller
 			{
 				$message = $this->xss_clean($this->lang->line('items_successful_' . ($new_item ? 'adding' : 'updating')) . ' ' . $item_data['name']);
 
-				echo json_encode(array('success' => TRUE, 'message' => $message, 'id' => $item_id));
+				echo json_encode(array('success' => true, 'message' => $message, 'id' => $item_id));
 			}
 			else
 			{
 				$message = $this->xss_clean($upload_success ? $this->lang->line('items_error_adding_updating') . ' ' . $item_data['name'] : strip_tags($this->upload->display_errors()));
 
-				echo json_encode(array('success' => FALSE, 'message' => $message, 'id' => $item_id));
+				echo json_encode(array('success' => false, 'message' => $message, 'id' => $item_id));
 			}
 		}
 		else//failure
 		{
 			$message = $this->xss_clean($this->lang->line('items_error_adding_updating') . ' ' . $item_data['name']);
 			
-			echo json_encode(array('success' => FALSE, 'message' => $message, 'id' => -1));
+			echo json_encode(array('success' => false, 'message' => $message, 'id' => -1));
 		}
 	}
 	
@@ -497,7 +497,7 @@ class Items extends Secure_Controller
 		}
 		else
 		{
-			$exists = FALSE;
+			$exists = false;
 		}
 		echo !$exists ? 'true' : 'false';
 	}
@@ -549,13 +549,13 @@ class Items extends Secure_Controller
 		{
 			$message = $this->xss_clean($this->lang->line('items_successful_updating') . ' ' . $cur_item_info->name);
 			
-			echo json_encode(array('success' => TRUE, 'message' => $message, 'id' => $item_id));
+			echo json_encode(array('success' => true, 'message' => $message, 'id' => $item_id));
 		}
 		else//failure
 		{
 			$message = $this->xss_clean($this->lang->line('items_error_adding_updating') . ' ' . $cur_item_info->name);
 			
-			echo json_encode(array('success' => FALSE, 'message' => $message, 'id' => -1));
+			echo json_encode(array('success' => false, 'message' => $message, 'id' => -1));
 		}
 	}
 
@@ -583,13 +583,13 @@ class Items extends Secure_Controller
 			$items_taxes_data = array();
 			$tax_names = $this->input->post('tax_names');
 			$tax_percents = $this->input->post('tax_percents');
-			$tax_updated = FALSE;
+			$tax_updated = false;
 			$count = count($tax_percents);
 			for ($k = 0; $k < $count; ++$k)
 			{		
 				if(!empty($tax_names[$k]) && is_numeric($tax_percents[$k]))
 				{
-					$tax_updated = TRUE;
+					$tax_updated = true;
 					
 					$items_taxes_data[] = array('name' => $tax_names[$k], 'percent' => $tax_percents[$k]);
 				}
@@ -600,11 +600,11 @@ class Items extends Secure_Controller
 				$this->Item_taxes->save_multiple($items_taxes_data, $items_to_update);
 			}
 
-			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('items_successful_bulk_edit'), 'id' => $this->xss_clean($items_to_update)));
+			echo json_encode(array('success' => true, 'message' => $this->lang->line('items_successful_bulk_edit'), 'id' => $this->xss_clean($items_to_update)));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('items_error_updating_multiple')));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('items_error_updating_multiple')));
 		}
 	}
 
@@ -615,11 +615,11 @@ class Items extends Secure_Controller
 		if($this->Item->delete_list($items_to_delete))
 		{
 			$message = $this->lang->line('items_successful_deleted') . ' ' . count($items_to_delete) . ' ' . $this->lang->line('items_one_or_multiple');
-			echo json_encode(array('success' => TRUE, 'message' => $message));
+			echo json_encode(array('success' => true, 'message' => $message));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('items_cannot_be_deleted')));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('items_cannot_be_deleted')));
 		}
 	}
 
@@ -642,11 +642,11 @@ class Items extends Secure_Controller
 	{
 		if($_FILES['file_path']['error'] != UPLOAD_ERR_OK)
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('items_excel_import_failed')));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('items_excel_import_failed')));
 		}
 		else
 		{
-			if(($handle = fopen($_FILES['file_path']['tmp_name'], 'r')) !== FALSE)
+			if(($handle = fopen($_FILES['file_path']['tmp_name'], 'r')) !== false)
 			{
 				// Skip the first row as it's the table description
 				fgetcsv($handle);
@@ -654,7 +654,7 @@ class Items extends Secure_Controller
 				
 				$failCodes = array();
 		
-				while(($data = fgetcsv($handle)) !== FALSE)
+				while(($data = fgetcsv($handle)) !== false)
 				{
 					// XSS file data sanity check
 					$data = $this->xss_clean($data);
@@ -669,7 +669,7 @@ class Items extends Secure_Controller
 							'cost_price'			=> $data[4],
 							'unit_price'			=> $data[5],
 							'reorder_level'			=> $data[10],
-							'supplier_id'			=> $this->Supplier->exists($data[3]) ? $data[3] : NULL,
+							'supplier_id'			=> $this->Supplier->exists($data[3]) ? $data[3] : null,
 							'allow_alt_description'	=> $data[12] != '' ? '1' : '0',
 							'is_serialized'			=> $data[13] != '' ? '1' : '0',
 							'custom1'				=> $data[14],
@@ -696,7 +696,7 @@ class Items extends Secure_Controller
 						$item_data['pic_filename'] = $pic_file;
 
 						$item_number = $data[0];
-						$invalidated = FALSE;
+						$invalidated = false;
 						if($item_number != '')
 						{
 							$item_data['item_number'] = $item_number;
@@ -705,12 +705,12 @@ class Items extends Secure_Controller
 					}
 					else 
 					{
-						$invalidated = TRUE;
+						$invalidated = true;
 					}
 
 					if(!$invalidated && $this->Item->save($item_data))
 					{
-						$items_taxes_data = NULL;
+						$items_taxes_data = null;
 						//tax 1
 						if(is_numeric($data[7]) && $data[6] != '')
 						{
@@ -799,16 +799,16 @@ class Items extends Secure_Controller
 				{
 					$message = $this->lang->line('items_excel_import_partially_failed') . ' (' . count($failCodes) . '): ' . implode(', ', $failCodes);
 					
-					echo json_encode(array('success' => FALSE, 'message' => $message));
+					echo json_encode(array('success' => false, 'message' => $message));
 				}
 				else
 				{
-					echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('items_excel_import_success')));
+					echo json_encode(array('success' => true, 'message' => $this->lang->line('items_excel_import_success')));
 				}
 			}
 			else 
 			{
-				echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('items_excel_import_nodata_wrongformat')));
+				echo json_encode(array('success' => false, 'message' => $this->lang->line('items_excel_import_nodata_wrongformat')));
 			}
 		}
 	}

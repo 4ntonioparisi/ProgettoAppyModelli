@@ -51,14 +51,14 @@ class Suppliers extends Persons
 	*/
 	public function suggest()
 	{
-		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->get('term'), TRUE));
+		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->get('term'), true));
 
 		echo json_encode($suggestions);
 	}
 
 	public function suggest_search()
 	{
-		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->post('term'), FALSE));
+		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->post('term'), false));
 
 		echo json_encode($suggestions);
 	}
@@ -109,7 +109,7 @@ class Suppliers extends Persons
 		$supplier_data = array(
 			'company_name' => $this->input->post('company_name'),
 			'agency_name' => $this->input->post('agency_name'),
-			'account_number' => $this->input->post('account_number') == '' ? NULL : $this->input->post('account_number')
+			'account_number' => $this->input->post('account_number') == '' ? null : $this->input->post('account_number')
 		);
 
 		if($this->Supplier->save_supplier($person_data, $supplier_data, $supplier_id))
@@ -119,13 +119,13 @@ class Suppliers extends Persons
 			//New supplier
 			if($supplier_id == -1)
 			{
-				echo json_encode(array('success' => TRUE,
+				echo json_encode(array('success' => true,
 								'message' => $this->lang->line('suppliers_successful_adding') . ' ' . $supplier_data['company_name'],
 								'id' => $supplier_data['person_id']));
 			}
 			else //Existing supplier
 			{
-				echo json_encode(array('success' => TRUE,
+				echo json_encode(array('success' => true,
 								'message' => $this->lang->line('suppliers_successful_updating') . ' ' . $supplier_data['company_name'],
 								'id' => $supplier_id));
 			}
@@ -134,7 +134,7 @@ class Suppliers extends Persons
 		{
 			$supplier_data = $this->xss_clean($supplier_data);
 
-			echo json_encode(array('success' => FALSE,
+			echo json_encode(array('success' => false,
 							'message' => $this->lang->line('suppliers_error_adding_updating') . ' ' . 	$supplier_data['company_name'],
 							'id' => -1));
 		}
@@ -149,12 +149,12 @@ class Suppliers extends Persons
 
 		if($this->Supplier->delete_list($suppliers_to_delete))
 		{
-			echo json_encode(array('success' => TRUE,'message' => $this->lang->line('suppliers_successful_deleted').' '.
+			echo json_encode(array('success' => true,'message' => $this->lang->line('suppliers_successful_deleted').' '.
 							count($suppliers_to_delete).' '.$this->lang->line('suppliers_one_or_multiple')));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE,'message' => $this->lang->line('suppliers_cannot_be_deleted')));
+			echo json_encode(array('success' => false,'message' => $this->lang->line('suppliers_cannot_be_deleted')));
 		}
 	}
 	

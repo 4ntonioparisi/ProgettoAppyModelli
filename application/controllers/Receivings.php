@@ -18,7 +18,7 @@ class Receivings extends Secure_Controller
 
 	public function item_search()
 	{
-		$suggestions = $this->Item->get_search_suggestions($this->input->get('term'), array('search_custom' => FALSE, 'is_deleted' => FALSE), TRUE);
+		$suggestions = $this->Item->get_search_suggestions($this->input->get('term'), array('search_custom' => false, 'is_deleted' => false), true);
 		$suggestions = array_merge($suggestions, $this->Item_kit->get_search_suggestions($this->input->get('term')));
 
 		$suggestions = $this->xss_clean($suggestions);
@@ -28,7 +28,7 @@ class Receivings extends Secure_Controller
 
 	public function stock_item_search()
 	{
-		$suggestions = $this->Item->get_stock_search_suggestions($this->input->get('term'), array('search_custom' => FALSE, 'is_deleted' => FALSE), TRUE);
+		$suggestions = $this->Item->get_stock_search_suggestions($this->input->get('term'), array('search_custom' => false, 'is_deleted' => false), true);
 		$suggestions = array_merge($suggestions, $this->Item_kit->get_search_suggestions($this->input->get('term')));
 
 		$suggestions = $this->xss_clean($suggestions);
@@ -118,7 +118,7 @@ class Receivings extends Secure_Controller
 		$this->form_validation->set_rules('discount', 'lang:items_discount', 'required|callback_numeric');
 
 
-		if($this->form_validation->run() != FALSE)
+		if($this->form_validation->run() != false)
 		{
 			$this->receiving_lib->edit_item();
 		}
@@ -161,19 +161,19 @@ class Receivings extends Secure_Controller
 		$this->_reload();
 	}
 	
-	public function delete($receiving_id = -1, $update_inventory = TRUE) 
+	public function delete($receiving_id = -1, $update_inventory = true) 
 	{
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$receiving_ids = $receiving_id == -1 ? $this->input->post('ids') : array($receiving_id);
 	
 		if($this->Receiving->delete_list($receiving_ids, $employee_id, $update_inventory))
 		{
-			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('receivings_successfully_deleted') . ' ' .
+			echo json_encode(array('success' => true, 'message' => $this->lang->line('receivings_successfully_deleted') . ' ' .
 							count($receiving_ids) . ' ' . $this->lang->line('receivings_one_or_multiple'), 'ids' => $receiving_ids));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('receivings_cannot_be_deleted')));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('receivings_cannot_be_deleted')));
 		}
 	}
 
@@ -199,7 +199,7 @@ class Receivings extends Secure_Controller
 		$data['payment_type'] = $this->input->post('payment_type');
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('receivings');
 		$data['stock_location'] = $this->receiving_lib->get_stock_source();
-		if($this->input->post('amount_tendered') != NULL)
+		if($this->input->post('amount_tendered') != null)
 		{
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
 			$data['amount_change'] = to_currency($data['amount_tendered'] - $data['total']);
@@ -307,7 +307,7 @@ class Receivings extends Secure_Controller
 			}
 		}
 
-		$data['print_after_sale'] = FALSE;
+		$data['print_after_sale'] = false;
 
 		$data = $this->xss_clean($data);
 		
@@ -371,19 +371,19 @@ class Receivings extends Secure_Controller
 
 		$receiving_data = array(
 			'receiving_time' => $date_formatter->format('Y-m-d H:i:s'),
-			'supplier_id' => $this->input->post('supplier_id') ? $this->input->post('supplier_id') : NULL,
+			'supplier_id' => $this->input->post('supplier_id') ? $this->input->post('supplier_id') : null,
 			'employee_id' => $this->input->post('employee_id'),
 			'comment' => $this->input->post('comment'),
-			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL
+			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : null
 		);
 	
 		if($this->Receiving->update($receiving_data, $receiving_id))
 		{
-			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('receivings_successfully_updated'), 'id' => $receiving_id));
+			echo json_encode(array('success' => true, 'message' => $this->lang->line('receivings_successfully_updated'), 'id' => $receiving_id));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('receivings_unsuccessfully_updated'), 'id' => $receiving_id));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('receivings_unsuccessfully_updated'), 'id' => $receiving_id));
 		}
 	}
 
