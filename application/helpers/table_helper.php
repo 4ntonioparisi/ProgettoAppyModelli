@@ -14,19 +14,19 @@ function get_sales_manage_table_headers()
 		array('payment_type' => $CI->lang->line('sales_payment_type'))
 	);
 
-	if($CI->config->item('invoice_enable') == TRUE)
+	if($CI->config->item('invoice_enable') == true)
 	{
 		$headers[] = array('invoice_number' => $CI->lang->line('sales_invoice_number'));
-		$headers[] = array('invoice' => '&nbsp', 'sortable' => FALSE);
+		$headers[] = array('invoice' => '&nbsp', 'sortable' => false);
 	}
 
-	return transform_headers(array_merge($headers, array(array('receipt' => '&nbsp', 'sortable' => FALSE))));
+	return transform_headers(array_merge($headers, array(array('receipt' => '&nbsp', 'sortable' => false))));
 }
 
 /*
  Gets the html data rows for the sales.
  */
-function get_sale_data_last_row($sales, $controller)
+function get_sale_data_last_row($sales)//stava $controllers
 {
 	$CI =& get_instance();
 	$sum_amount_due = 0;
@@ -49,7 +49,7 @@ function get_sale_data_last_row($sales, $controller)
 	);
 }
 
-function get_sale_data_row($sale, $controller)
+function get_sale_data_row($sale)//stava $controller
 {
 	$CI =& get_instance();
 	$controller_name = $CI->uri->segment(1);
@@ -85,7 +85,7 @@ function get_sale_data_row($sale, $controller)
 /*
 Get the sales payments summary
 */
-function get_sales_manage_payments_summary($payments, $sales, $controller)
+function get_sales_manage_payments_summary($payments, $sales)
 {
 	$CI =& get_instance();
 	$table = '<div id="report_summary">';
@@ -121,13 +121,13 @@ function transform_headers_readonly($array)
 	return json_encode($result);
 }
 
-function transform_headers($array, $readonly = FALSE, $editable = TRUE)
+function transform_headers($array, $readonly = false, $editable = true)
 {
 	$result = array();
 
 	if (!$readonly)
 	{
-		$array = array_merge(array(array('checkbox' => 'select', 'sortable' => FALSE)), $array);
+		$array = array_merge(array(array('checkbox' => 'select', 'sortable' => false)), $array);
 	}
 
 	if ($editable)
@@ -145,7 +145,7 @@ function transform_headers($array, $readonly = FALSE, $editable = TRUE)
 			'sortable' => isset($element['sortable']) ?
 				$element['sortable'] : current($element) != '',
 			'checkbox' => isset($element['checkbox']) ?
-				$element['checkbox'] : FALSE,
+				$element['checkbox'] : false,
 			'class' => isset($element['checkbox']) || preg_match('(^$|&nbsp)', current($element)) ?
 				'print_hide' : '',
 			'sorter' => isset($element['sorter']) ?
@@ -168,13 +168,13 @@ function get_people_manage_table_headers()
 
 	if($CI->Employee->has_grant('messages', $CI->session->userdata('person_id')))
 	{
-		$headers[] = array('messages' => '', 'sortable' => FALSE);
+		$headers[] = array('messages' => '', 'sortable' => false);
 	}
 
 	return transform_headers($headers);
 }
 
-function get_person_data_row($person, $controller)
+function get_person_data_row($person)
 {
 	$CI =& get_instance();
 	$controller_name = strtolower(get_class($CI));
@@ -202,18 +202,18 @@ function get_customer_manage_table_headers()
 		array('first_name' => $CI->lang->line('common_first_name')),
 		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number')),
-		array('total' => $CI->lang->line('common_total_spent'), 'sortable' => FALSE)
+		array('total' => $CI->lang->line('common_total_spent'), 'sortable' => false)
 	);
 
 	if($CI->Employee->has_grant('messages', $CI->session->userdata('person_id')))
 	{
-		$headers[] = array('messages' => '', 'sortable' => FALSE);
+		$headers[] = array('messages' => '', 'sortable' => false);
 	}
 
 	return transform_headers($headers);
 }
 
-function get_customer_data_row($person, $stats, $controller)
+function get_customer_data_row($person, $stats)
 {
 	$CI =& get_instance();
 	$controller_name = strtolower(get_class($CI));
@@ -254,7 +254,7 @@ function get_suppliers_manage_table_headers()
 	return transform_headers($headers);
 }
 
-function get_supplier_data_row($supplier, $controller)
+function get_supplier_data_row($supplier)
 {
 	$CI =& get_instance();
 	$controller_name = strtolower(get_class($CI));
@@ -287,8 +287,8 @@ function get_items_manage_table_headers()
 		array('cost_price' => $CI->lang->line('items_cost_price')),
 		array('unit_price' => $CI->lang->line('items_unit_price')),
 		array('quantity' => $CI->lang->line('items_quantity')),
-		array('tax_percents' => $CI->lang->line('items_tax_percents'), 'sortable' => FALSE),
-		array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE),
+		array('tax_percents' => $CI->lang->line('items_tax_percents'), 'sortable' => false),
+		array('item_pic' => $CI->lang->line('items_image'), 'sortable' => false),
 		array('inventory' => ''),
 		array('stock' => '')
 	);
@@ -296,7 +296,7 @@ function get_items_manage_table_headers()
 	return transform_headers($headers);
 }
 
-function get_item_data_row($item, $controller)
+function get_item_data_row($item)
 {
 	$CI =& get_instance();
 	$item_tax_info = $CI->Item_taxes->get_info($item->item_id);
@@ -309,7 +309,7 @@ function get_item_data_row($item, $controller)
 	$tax_percents = substr($tax_percents, 0, -2);
 	$controller_name = strtolower(get_class($CI));
 
-	$image = NULL;
+	$image = null;
 	if ($item->pic_filename != '')
 	{
 		$ext = pathinfo($item->pic_filename, PATHINFO_EXTENSION);
@@ -384,7 +384,7 @@ function get_taxes_manage_table_headers()
 	return transform_headers($headers);
 }
 
-function get_giftcard_data_row($giftcard, $controller)
+function get_giftcard_data_row($giftcard)
 {
 	$CI =& get_instance();
 	$controller_name=strtolower(get_class($CI));
@@ -400,7 +400,7 @@ function get_giftcard_data_row($giftcard, $controller)
 		));
 }
 
-function get_tax_data_row($tax_code_row, $controller)
+function get_tax_data_row($tax_code_row)
 {
 	$CI =& get_instance();
 	$controller_name=strtolower(get_class($CI));
@@ -428,14 +428,14 @@ function get_item_kits_manage_table_headers()
 		array('item_kit_id' => $CI->lang->line('item_kits_kit')),
 		array('name' => $CI->lang->line('item_kits_name')),
 		array('description' => $CI->lang->line('item_kits_description')),
-		array('cost_price' => $CI->lang->line('items_cost_price'), 'sortable' => FALSE),
-		array('unit_price' => $CI->lang->line('items_unit_price'), 'sortable' => FALSE)
+		array('cost_price' => $CI->lang->line('items_cost_price'), 'sortable' => false),
+		array('unit_price' => $CI->lang->line('items_unit_price'), 'sortable' => false)
 	);
 
 	return transform_headers($headers);
 }
 
-function get_item_kit_data_row($item_kit, $controller)
+function get_item_kit_data_row($item_kit)
 {
 	$CI =& get_instance();
 	$controller_name = strtolower(get_class($CI));
