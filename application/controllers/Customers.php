@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 require_once("Persons.php");
 
 class Customers extends Persons
