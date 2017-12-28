@@ -61,13 +61,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_sales_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -97,12 +97,12 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_categories_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
-			'summary_data' => $summary
+			'summary_data' => $summary*/
 		);
 
 		$this->load->view('reports/tabular');
@@ -133,13 +133,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_customers_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -169,13 +169,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_suppliers_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -205,13 +205,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_items_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -241,13 +241,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_employees_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -275,13 +275,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_taxes_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -306,13 +306,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_discounts_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -338,13 +338,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_payments_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $summary
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -406,8 +406,8 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $date, 'value' => $row['total']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_sales_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/line',
 			'labels_1' => $labels,
@@ -416,7 +416,7 @@ class Reports extends Secure_Controller
 			'yaxis_title' => $this->lang->line('reports_revenue'),
 			'xaxis_title' => $this->lang->line('reports_date'),
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -442,8 +442,8 @@ class Reports extends Secure_Controller
 			$series[] = $row['total'];
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_items_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/hbar',
 			'labels_1' => $labels,
@@ -452,7 +452,7 @@ class Reports extends Secure_Controller
 			'yaxis_title' => $this->lang->line('reports_items'),
 			'xaxis_title' => $this->lang->line('reports_revenue'),
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -478,15 +478,15 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $row['category'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_categories_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -512,15 +512,15 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $row['supplier'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_suppliers_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -546,15 +546,15 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $row['employee'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_employees_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -580,15 +580,15 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $row['percent'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_taxes_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -614,8 +614,8 @@ class Reports extends Secure_Controller
 			$series[] = $row['total'];
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_customers_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/hbar',
 			'labels_1' => $labels,
@@ -624,7 +624,7 @@ class Reports extends Secure_Controller
 			'yaxis_title' => $this->lang->line('reports_customers'),
 			'xaxis_title' => $this->lang->line('reports_revenue'),
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -650,8 +650,8 @@ class Reports extends Secure_Controller
 			$series[] = $row['count'];
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_discounts_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/bar',
 			'labels_1' => $labels,
@@ -660,7 +660,7 @@ class Reports extends Secure_Controller
 			'yaxis_title' => $this->lang->line('reports_count'),
 			'xaxis_title' => $this->lang->line('reports_discount_percent'),
 			'show_currency' => FALSE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -686,15 +686,15 @@ class Reports extends Secure_Controller
 			$series[] = array('meta' => $row['payment_type'] . ' ' . round($row['payment_amount'] / $summary['total'] * 100, 2) . '%', 'value' => $row['payment_amount']);
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_payments_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
 			'series_data_1' => $series,
 			'summary_data_1' => $summary,
 			'show_currency' => TRUE
-		);
+		);*/
 
 		$this->load->view('reports/graphical');
 	}
@@ -771,15 +771,15 @@ class Reports extends Secure_Controller
 		}
 
 		$customer_info = $this->Customer->get_info($customer_id);
-		$data = array(
-			'title' => $this->xss_clean($customer_info->first_name . ' ' . $customer_info->last_name . ' ' . $this->lang->line()),
+		/*$data = array(
+			'title' => $this->xss_clean($customer_info->first_name . ' ' . $customer_info->last_name . ' ' . $this->lang->line('reports_report')),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'summary_data' => $summary_data,
 			'details_data' => $details_data,
 			'details_data_rewards' => $details_data_rewards,
 			'overall_summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 
 		$this->load->view('reports/tabular_details');
 	}
@@ -856,15 +856,15 @@ class Reports extends Secure_Controller
 		}
 
 		$employee_info = $this->Employee->get_info($employee_id);
-		$data = array(
-			'title' => $this->xss_clean($employee_info->first_name . ' ' . $employee_info->last_name . ' ' . $this->lang->line()),
+		/*$data = array(
+			'title' => $this->xss_clean($employee_info->first_name . ' ' . $employee_info->last_name . ' ' . $this->lang->line('reports_report')),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'summary_data' => $summary_data,
 			'details_data' => $details_data,
 			'details_data_rewards' => $details_data_rewards,
 			'overall_summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 
 		$this->load->view('reports/tabular_details');
 	}
@@ -941,15 +941,15 @@ class Reports extends Secure_Controller
 			}
 		}
 
-		$data = array(
-			'title' => $discount . '% ' . $this->lang->line('reports_discount') . ' ' . $this->lang->line(),
+		/*$data = array(
+			'title' => $discount . '% ' . $this->lang->line('reports_discount') . ' ' . $this->lang->line('reports_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'summary_data' => $summary_data,
 			'details_data' => $details_data,
 			'details_data_rewards' => $details_data_rewards,
 			'overall_summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 
 		$this->load->view('reports/tabular_details');
 	}
@@ -1055,8 +1055,8 @@ class Reports extends Secure_Controller
 			}
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_detailed_sales_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'editable' => 'sales',
@@ -1064,7 +1064,7 @@ class Reports extends Secure_Controller
 			'details_data' => $details_data,
 			'details_data_rewards' => $details_data_rewards,
 			'overall_summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 		$this->load->view('reports/tabular_details');
 	}
 
@@ -1143,15 +1143,15 @@ class Reports extends Secure_Controller
 			}
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_detailed_receivings_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'editable' => 'receivings',
 			'summary_data' => $summary_data,
 			'details_data' => $details_data,
 			'overall_summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 
 		$this->load->view('reports/tabular_details');
 	}
@@ -1177,13 +1177,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_inventory_low_report'),
 			'subtitle' => '',
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $this->xss_clean($model->getSummaryData($inputs))
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
@@ -1227,13 +1227,13 @@ class Reports extends Secure_Controller
 			));
 		}
 
-		$data = array(
-			'title' => $this->lang->line(),
+		/*$data = array(
+			'title' => $this->lang->line('reports_inventory_summary_report'),
 			'subtitle' => '',
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
 			'summary_data' => $this->xss_clean($model->getSummaryData($report_data))
-		);
+		);*/
 
 		$this->load->view('reports/tabular');
 	}
