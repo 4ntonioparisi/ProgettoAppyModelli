@@ -1,5 +1,5 @@
 <?php
-
+ 
 function get_sales_manage_table_headers()
 {
 	$CI =& get_instance();
