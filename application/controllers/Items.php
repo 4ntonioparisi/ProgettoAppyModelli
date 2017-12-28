@@ -438,9 +438,6 @@ class Items extends Secure_Controller
 			foreach($stock_locations as $location)
 			{
 				$updated_quantity = parse_decimals($this->input->post('quantity_' . $location['location_id']));
-				$location_detail = array('item_id' => $item_id,
-										'location_id' => $location['location_id'],
-										'quantity' => $updated_quantity);
 				$item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
 				if($item_quantity->quantity != $updated_quantity || $new_item)
 				{
@@ -543,7 +540,6 @@ class Items extends Secure_Controller
 		$this->Inventory->insert($inv_data);
 		
 		//Update stock quantity
-		$item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location_id);
 
 		if($this->Item_quantity->save())
 		{
@@ -742,11 +738,6 @@ class Items extends Secure_Controller
 							$location_id = $data[$col];
 							if(array_key_exists($location_id, $allowed_locations))
 							{
-								$item_quantity_data = array(
-									'item_id' => $item_data['item_id'],
-									'location_id' => $location_id,
-									'quantity' => $data[$col + 1],
-								);
 								$this->Item_quantity->save();
 
 								$excel_data = array(
@@ -833,7 +824,6 @@ class Items extends Secure_Controller
 			$images = glob('./uploads/item_pics/' . $item->pic_filename . '.*');
 			if (sizeof($images) > 0) {
 				$new_pic_filename = pathinfo($images[0], PATHINFO_BASENAME);
-				$item_data = array('pic_filename' => $new_pic_filename);
 				$this->Item->save();
 			}
 		}
