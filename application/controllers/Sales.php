@@ -684,62 +684,6 @@ class Sales extends Secure_Controller
 		return $result;
 	}
 
-	private function _load_customer_data($customer_id, &$data, $stats = FALSE)
-	{
-		$customer_info = '';
-
-		if($customer_id != -1)
-		{
-			$customer_info = $this->Customer->get_info($customer_id);
-			if(isset($customer_info->company_name))
-			{
-				$data['customer'] = $customer_info->company_name;
-			}
-			else
-			{
-				$data['customer'] = $customer_info->first_name . ' ' . $customer_info->last_name;
-			}
-			$data['first_name'] = $customer_info->first_name;
-			$data['last_name'] = $customer_info->last_name;
-			$data['customer_email'] = $customer_info->email;
-			$data['customer_address'] = $customer_info->address_1;
-			if(!empty($customer_info->zip) || !empty($customer_info->city))
-			{
-				$data['customer_location'] = $customer_info->zip . ' ' . $customer_info->city;
-			}
-			else
-			{
-				$data['customer_location'] = '';
-			}
-			$data['customer_account_number'] = $customer_info->account_number;
-			$data['customer_discount_percent'] = $customer_info->discount_percent;
-			$package_id = $this->Customer->get_info($customer_id)->package_id;
-			if($package_id != NULL)
-			{
-				$package_name = $this->Customer_rewards->get_name($package_id);
-				$points = $this->Customer->get_info($customer_id)->points;
-				$data['customer_rewards']['package_id'] = $package_id;
-				$data['customer_rewards']['points'] = ($points==NULL ? 0 : $points);
-				$data['customer_rewards']['package_name'] = $package_name;
-			}
-
-			if($stats)
-			{
-				$cust_stats = $this->Customer->get_stats($customer_id);
-				$data['customer_total'] = empty($cust_stats) ? 0 : $cust_stats->total;
-			}
-
-			$data['customer_info'] = implode("\n", array(
-				$data['customer'],
-				$data['customer_address'],
-				$data['customer_location'],
-				$data['customer_account_number']
-			));
-		}
-
-		return $customer_info;
-	}
-
 	private function _load_sale_data($sale_id)
 	{
 		$this->sale_lib->clear_all();
