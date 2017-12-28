@@ -1,4 +1,5 @@
 <?php 
+
 require_once("Secure_Controller.php");
 
 class Config extends Secure_Controller
