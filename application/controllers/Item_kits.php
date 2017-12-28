@@ -127,16 +127,16 @@ class Item_kits extends Secure_Controller
 		
 		if($this->Item_kit->save())
 		{
-			$success = TRUE;
-			$new_item = FALSE;
+			$success = true;
+			$new_item = false;
 			//New item kit
 			if ($item_kit_id == -1)
 			{
 				$item_kit_id = $item_kit_data['item_kit_id'];
-				$new_item = TRUE;
+				$new_item = true;
 			}
 
-			if($this->input->post('item_kit_qty') != NULL)
+			if($this->input->post('item_kit_qty') != null)
 			{
 				$item_kit_items = array();
 				foreach($this->input->post('item_kit_qty') as $item_id => $quantity)
@@ -171,7 +171,7 @@ class Item_kits extends Secure_Controller
 		{
 			$item_kit_data = $this->xss_clean($item_kit_data);
 
-			echo json_encode(array('success' => FALSE, 
+			echo json_encode(array('success' => false, 
 								'message' => $this->lang->line('item_kits_error_adding_updating').' '.$item_kit_data['name'], 'id' => -1));
 		}
 	}
@@ -182,12 +182,12 @@ class Item_kits extends Secure_Controller
 
 		if($this->Item_kit->delete_list($item_kits_to_delete))
 		{
-			echo json_encode(array('success' => TRUE,
+			echo json_encode(array('success' => true,
 								'message' => $this->lang->line('item_kits_successful_deleted').' '.count($item_kits_to_delete).' '.$this->lang->line('item_kits_one_or_multiple')));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE,
+			echo json_encode(array('success' => false,
 								'message' => $this->lang->line('item_kits_cannot_be_deleted')));
 		}
 	}
