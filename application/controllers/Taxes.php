@@ -1,5 +1,5 @@
-<?php 
-require_once("Secure_Controller.php");
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+require_once "Secure_Controller.php";
 
 class Taxes extends Secure_Controller
 {

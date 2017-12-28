@@ -1,6 +1,6 @@
 <?php 
 
-require_once("Secure_Controller.php");
+require_once "Secure_Controller.php";
 
 abstract class Persons extends Secure_Controller
 {
