@@ -24,10 +24,6 @@ class Taxes extends Secure_Controller
 	public function search()
 	{
 		$search = $this->input->get('search');
-		$limit = $this->input->get('limit');
-		$offset = $this->input->get('offset');
-		$sort = $this->input->get('sort');
-		$order = $this->input->get('order');
 
 		$tax_codes = $this->Tax->search();
 
@@ -77,7 +73,7 @@ class Taxes extends Secure_Controller
 		$tax_code_info = $this->Tax->get_info($tax_code);
 
 		$default_tax_category_id = 1; // Tax category id is always the default tax category
-		$default_tax_category = $this->Tax->get_tax_category($default_tax_category_id);
+		$this->Tax->get_tax_category($default_tax_category_id);
 
 		$tax_rate_info = $this->Tax->get_rate_info($tax_code, $default_tax_category_id);
 
@@ -147,12 +143,6 @@ class Taxes extends Secure_Controller
 			'city' => $this->input->post('city'),
 			'state' => $this->input->post('state'));
 
-		$tax_rate_data = array(
-			'rate_tax_code' => $this->input->post('tax_code'),
-			'rate_tax_category_id' => 1,
-			'tax_rate' => parse_decimals($this->input->post('tax_rate')),
-			'rounding_code' => $this->input->post('rounding_code')
-		);
 
 		if($this->Tax->save())
 		{
@@ -173,7 +163,7 @@ class Taxes extends Secure_Controller
 
 			if (!empty($tax_code_rate_exceptions))
 			{
-				$success = $this->Tax->save_tax_rate_exceptions($tax_code_rate_exceptions, $entered_tax_code);
+				$this->Tax->save_tax_rate_exceptions($tax_code_rate_exceptions, $entered_tax_code);
 			}
 
 			$tax_code_data = $this->xss_clean($tax_code_data);
