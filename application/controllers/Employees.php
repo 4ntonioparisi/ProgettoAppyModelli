@@ -1,5 +1,5 @@
 <?php 
-require_once("Persons.php");
+require_once "Persons.php";
 
 
 class Employees extends Persons
