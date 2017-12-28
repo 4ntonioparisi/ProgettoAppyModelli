@@ -423,30 +423,6 @@ class Config extends Secure_Controller
 	}
 
 	/*
-	* This function fetches all the available lists from Mailchimp for the given API key
-	*/
-	private function _mailchimp($api_key = '')
-	{
-		$this->load->library('mailchimp_lib', array('api_key' => $api_key));
-
-		$result = array();
-
-		if(($lists = $this->mailchimp_lib->getLists()) !== FALSE)
-		{
-			if(is_array($lists) && !empty($lists['lists']) && is_array($lists['lists']))
-			{
-				foreach($lists['lists'] as $list)
-				{
-					$list = $this->xss_clean($list);
-					$result[$list['id']] = $list['name'] . ' [' . $list['stats']['member_count'] . ']';
-				}
-			}
-		}
-
-		return $result;
-	}
-
-	/*
 	AJAX call from mailchimp config form to fetch the Mailchimp lists when a valid API key is inserted
 	*/
 	public function ajax_check_mailchimp_api_key()
