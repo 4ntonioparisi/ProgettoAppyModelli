@@ -1,5 +1,6 @@
 <?php
-defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
+defined('basepath') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
+
 
 /*
 | -------------------------------------------------------------------
@@ -71,7 +72,7 @@ defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_N
 | the query builder class.
 */
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = true;
 
 $db['default'] = array(
 	'dsn'	=> '',
@@ -81,16 +82,16 @@ $db['default'] = array(
 	'database' => !empty(getenv('MYSQL_DB_NAME')) ? getenv('MYSQL_DB_NAME') : 'ospos_app_config',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'ospos_',
-	'pconnect' => FALSE,
+	'pconnect' => false,
 	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
+	'cache_on' => false,
 	'cachedir' => '',
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
+	'encrypt' => false,
+	'compress' => false,
+	'stricton' => false,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => false
 );
