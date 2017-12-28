@@ -22,10 +22,7 @@ class Giftcards extends Secure_Controller
 	public function search()
 	{
 		$search = $this->input->get('search');
-		$limit  = $this->input->get('limit');
-		$offset = $this->input->get('offset');
-		$sort   = $this->input->get('sort');
-		$order  = $this->input->get('order');
+		
 
 		$giftcards = $this->Giftcard->search();
 		$total_rows = $this->Giftcard->get_found_rows($search);
