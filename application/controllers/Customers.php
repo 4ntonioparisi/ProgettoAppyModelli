@@ -55,7 +55,7 @@ class Customers extends Persons
 	public function search()
 	{
 		$search = $this->input->get('search');
-		$limit  = $this->input->get('limit');
+	
 		
 		$customers = $this->Customer->search();
 		$total_rows = $this->Customer->get_found_rows($search);
