@@ -93,8 +93,9 @@ class Receiving_lib
 		return empty($comment) ? '' : $comment;
 	}
 	
-	public function set_comment($comment)
+	public function set_comment()
 	{
+        $comment='';
 		$this->CI->session->set_userdata('recv_comment', $comment);
 	}
 	
@@ -108,8 +109,9 @@ class Receiving_lib
 		return $this->CI->session->userdata('recv_reference');
 	}
 	
-	public function set_reference($reference)
+	public function set_reference()
 	{
+        $reference='';
 		$this->CI->session->set_userdata('recv_reference', $reference);
 	}
 	
@@ -124,8 +126,9 @@ class Receiving_lib
 				$this->CI->session->userdata('recv_print_after_sale') == '1';
 	}
 	
-	public function set_print_after_sale($print_after_sale)
+	public function set_print_after_sale()
 	{
+        $print_after_sale='';
 		return $this->CI->session->set_userdata('recv_print_after_sale', $print_after_sale);
 	}
 	
@@ -245,8 +248,14 @@ class Receiving_lib
 		return TRUE;
 	}
 
-	public function edit_item($line, $description, $serialnumber, $quantity, $discount, $price)
+	public function edit_item()
 	{
+        $line='';
+        $description=''; 
+        $serialnumber='';
+        $quantity='';
+        $discount='';
+        $price='';
 		$items = $this->get_cart();
 		if(isset($items[$line]))
 		{
