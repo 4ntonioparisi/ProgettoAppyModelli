@@ -19,7 +19,7 @@ class Login extends CI_Controller
 				$this->form_validation->set_rules('g-recaptcha-response', 'lang:login_gcaptcha', 'required|callback_gcaptcha_check');
 			}
 
-			if($this->form_validation->run() == FALSE)
+			if($this->form_validation->run() == false)
 			{
 				$this->load->view('login');
 			}
@@ -58,17 +58,17 @@ class Login extends CI_Controller
 		{
 			$this->form_validation->set_message('login_check', $this->lang->line('login_invalid_installation'));
 
-			return FALSE;
+			return false;
 		}
 
 		if(!$this->Employee->login($username, $password))
 		{
 			$this->form_validation->set_message('login_check', $this->lang->line('login_invalid_username_and_password'));
 
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function gcaptcha_check($recaptchaResponse)
@@ -76,22 +76,22 @@ class Login extends CI_Controller
 		$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $this->config->item('gcaptcha_secret_key') . '&response=' . $recaptchaResponse . '&remoteip=' . $this->input->ip_address();
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		$result = curl_exec($ch);
 		curl_close($ch);
 
-		$status = json_decode($result, TRUE);
+		$status = json_decode($result, true);
 
 		if(empty($status['success']))
 		{
 			$this->form_validation->set_message('gcaptcha_check', $this->lang->line('login_invalid_gcaptcha'));
 
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	private function _installation_check()
@@ -115,7 +115,7 @@ class Login extends CI_Controller
 		}
 		else
 		{
-			$result = preg_match('~\b(Copyright|(c)|©|All rights reserved|Developed|Crafted|Implemented|Made|Powered|Code|Design|unblockUI|blockUI|blockOverlay|hide|opacity)\b~i', file_get_contents(APPPATH . 'views/partial/footer.php')) != TRUE;
+			$result = preg_match('~\b(Copyright|(c)|©|All rights reserved|Developed|Crafted|Implemented|Made|Powered|Code|Design|unblockUI|blockUI|blockOverlay|hide|opacity)\b~i', file_get_contents(APPPATH . 'views/partial/footer.php')) != true;
 		}
 
 		return $result;
