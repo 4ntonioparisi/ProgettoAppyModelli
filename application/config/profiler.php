@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
+defined('BASEPATH') or trigger_error('No direct script access allowed', E_USER_NOTICE);
 
 /*
 | -------------------------------------------------------------------------
