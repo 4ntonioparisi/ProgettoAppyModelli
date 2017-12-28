@@ -44,7 +44,7 @@ class Giftcards extends Secure_Controller
 
 	public function suggest()
 	{
-		$suggestions = $this->xss_clean($this->Giftcard->get_search_suggestions($this->input->get('term'), TRUE));
+		$suggestions = $this->xss_clean($this->Giftcard->get_search_suggestions($this->input->get('term'), true));
 
 		echo json_encode($suggestions);
 	}
@@ -98,7 +98,7 @@ class Giftcards extends Secure_Controller
 			'record_time' => date('Y-m-d H:i:s'),
 			'giftcard_number' => $giftcard_number,
 			'value' => parse_decimals($this->input->post('value')),
-			'person_id' => $this->input->post('person_id') == '' ? NULL : $this->input->post('person_id')
+			'person_id' => $this->input->post('person_id') == '' ? null : $this->input->post('person_id')
 		);
 
 		if($this->Giftcard->save())
@@ -108,12 +108,12 @@ class Giftcards extends Secure_Controller
 			//New giftcard
 			if($giftcard_id == -1)
 			{
-				echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('giftcards_successful_adding') . ' ' .
+				echo json_encode(array('success' => true, 'message' => $this->lang->line('giftcards_successful_adding') . ' ' .
 								$giftcard_data['giftcard_number'], 'id' => $giftcard_data['giftcard_id']));
 			}
 			else //Existing giftcard
 			{
-				echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('giftcards_successful_updating') . ' ' .
+				echo json_encode(array('success' => true, 'message' => $this->lang->line('giftcards_successful_updating') . ' ' .
 								$giftcard_data['giftcard_number'], 'id' => $giftcard_id));
 			}
 		}
@@ -121,7 +121,7 @@ class Giftcards extends Secure_Controller
 		{
 			$giftcard_data = $this->xss_clean($giftcard_data);
 			
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('giftcards_error_adding_updating') . ' ' .
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('giftcards_error_adding_updating') . ' ' .
 							$giftcard_data['giftcard_number'], 'id' => -1));
 		}
 	}
@@ -132,12 +132,12 @@ class Giftcards extends Secure_Controller
 
 		if($this->Giftcard->delete_list($giftcards_to_delete))
 		{
-			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('giftcards_successful_deleted') . ' ' .
+			echo json_encode(array('success' => true, 'message' => $this->lang->line('giftcards_successful_deleted') . ' ' .
 							count($giftcards_to_delete).' '.$this->lang->line('giftcards_one_or_multiple')));
 		}
 		else
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('giftcards_cannot_be_deleted')));
+			echo json_encode(array('success' => false, 'message' => $this->lang->line('giftcards_cannot_be_deleted')));
 		}
 	}
 }
