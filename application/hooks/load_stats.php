@@ -30,11 +30,11 @@ function load_stats()
 				while(!feof($handle))
 				{
 					$buffer = fgets($handle);
-					if(strpos($buffer, $needle) !== FALSE)
+					if(strpos($buffer, $needle) !== false)
 					{
 						$login_footer = '';
 					}
-					elseif(strpos($buffer, 'form_close') !== FALSE)
+					elseif(strpos($buffer, 'form_close') !== false)
 					{
 						$login_footer = 'Footer: ';
 					}
