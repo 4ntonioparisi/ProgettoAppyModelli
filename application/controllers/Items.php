@@ -35,10 +35,6 @@ class Items extends Secure_Controller
 	public function search()
 	{
 		$search = $this->input->get('search');
-		$limit = $this->input->get('limit');
-		$offset = $this->input->get('offset');
-		$sort = $this->input->get('sort');
-		$order = $this->input->get('order');
 
 		$this->item_lib->set_item_location($this->input->get('stock_location'));
 
@@ -97,7 +93,6 @@ class Items extends Secure_Controller
 				$config['width'] = 52;
 				$config['height'] = 32;
 				$this->image_lib->initialize($config);
-				$image = $this->image_lib->resize();
 				$thumb_path = $this->image_lib->full_dst_path;
 			}
 			$this->output->set_content_type(get_mime_by_extension($thumb_path));
@@ -324,7 +319,6 @@ class Items extends Secure_Controller
 				$barcode_instance = Barcode_lib::barcode_instance($item, $config);
 				$item['item_number'] = $barcode_instance->getData();
 				
-				$save_item = array('item_number' => $item['item_number']);
 
 				// update the item in the database in order to save the barcode field
 				$this->Item->save();
@@ -412,7 +406,7 @@ class Items extends Secure_Controller
 		}
 		
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-		$cur_item_info = $this->Item->get_info($item_id);
+		
 		
 		if($this->Item->save())
 		{
@@ -527,7 +521,6 @@ class Items extends Secure_Controller
 
 	public function remove_logo($item_id)
 	{
-		$item_data = array('pic_filename' => NULL);
 		$result = $this->Item->save();
 
 		echo json_encode(array('success' => $result));
@@ -536,7 +529,7 @@ class Items extends Secure_Controller
 	public function save_inventory($item_id = -1)
 	{	
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-		$cur_item_info = $this->Item->get_info($item_id);
+		
 		$location_id = $this->input->post('stock_location');
 		$inv_data = array(
 			'trans_date' => date('Y-m-d H:i:s'),
@@ -551,11 +544,6 @@ class Items extends Secure_Controller
 		
 		//Update stock quantity
 		$item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location_id);
-		$item_quantity_data = array(
-			'item_id' => $item_id,
-			'location_id' => $location_id,
-			'quantity' => $item_quantity->quantity + parse_decimals($this->input->post('newquantity'))
-		);
 
 		if($this->Item_quantity->save())
 		{
@@ -743,7 +731,6 @@ class Items extends Secure_Controller
 
 						// quantities & inventory Info
 						$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-						$emp_info = $this->Employee->get_info($employee_id);
 						$comment ='Qty CSV Imported';
 
 						$cols = count($data);
