@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
+defined('basepath') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@ defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_N
 | and disable it back when you're done.
 |
 */
-$config['migration_enabled'] = TRUE;
+$config['migration_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $config['migration_table'] = 'migrations';
 | in your code to have the latest migration.
 |
 */
-$config['migration_auto_latest'] = FALSE;
+$config['migration_auto_latest'] = false;
 
 /*
 |--------------------------------------------------------------------------
