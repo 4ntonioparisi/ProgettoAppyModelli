@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
 require_once("Secure_Controller.php");
 
 class Receivings extends Secure_Controller
