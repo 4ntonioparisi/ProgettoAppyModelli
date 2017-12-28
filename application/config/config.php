@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR trigger_error('No direct script access allowed', E_USER_NOTICE);
 /*
 |-------------------------------------------------------------------------- 
 | Code Version 

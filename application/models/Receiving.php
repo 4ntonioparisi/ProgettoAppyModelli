@@ -59,8 +59,15 @@ class Receiving extends CI_Model
 		return $this->db->update('receivings', $receiving_data);
 	}
 
-	public function save($items, $supplier_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE)
+	public function save()
 	{
+        $items='';
+        $supplier_id='';
+        $employee_id='';
+        $comment='';
+        $reference='';
+        $payment_type=''; 
+        $receiving_id = FALSE;
 		if(count($items) == 0)
 		{
 			return -1;
