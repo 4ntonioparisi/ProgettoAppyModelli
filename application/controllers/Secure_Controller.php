@@ -58,8 +58,8 @@ class Secure_Controller extends CI_Controller
 	public function index() { return FALSE; }
 	public function search() { return FALSE; }
 	public function suggest_search() { return FALSE; }
-	public function view($data_item_id = -1) { return FALSE; }
-	public function save($data_item_id = -1) { return FALSE; }
+	public function view() { return FALSE; }
+	public function save() { return FALSE; }
 	public function delete() { return FALSE; }
 
 }
